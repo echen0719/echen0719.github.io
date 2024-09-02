@@ -1,0 +1,14 @@
+body {
+	margin: 0;
+	background-color:  #333333;
+}
+
+#crash-test-dummy-img {
+	width: 100%;
+}
+
+#website-title {
+	font-size: 50px;
+	color: #ffff99;
+	text-align: center;
+}
