@@ -11,27 +11,30 @@
    </head>
    <body>
    
-    <header>
-		<nav class="left-menu">
-			<a href="aboutme.html">About Me</a>
-			<a href="projects.html">Projects</a>
+    <header>	
+		<input type="checkbox" id="menu-toggle" />
+		<label for="menu-toggle" class="menu-icon">&#9776;</label>
+
+		<nav class="menu">
+			<ul>
+				<li><a href="aboutme.html">About Me</a></li>
+				<li><a href="projects.html">Projects</a></li>
+				<li><a href="contacts.html">Contacts</a></li>
+				<li><a href="faqs.html">FAQs</a></li>
+			</ul>
 		</nav>
-		<span class="header-center">
+	
+		<span class="name-img">
 		<a href="https://echen0719.github.io"> 
 			<img style="width: 50px;" src="Images\pfp-circle.png" alt="pfp"> 
 		</a>
-		<a id="header-title" href="https://echen0719.github.io">
-			Eric Chen
-		</a>
+		<a class="header-name" href="https://echen0719.github.io">Eric Chen</a>
 		</span>
-		<nav class="right-menu">
-			<a href="contacts.html">Contacts</a>
-			<a href="faqs.html">FAQs</a>
-		</nav>
-	</header>   
+	</header>
+	
       <main>
          <img id="crash-test-dummy-img" src = "https://t4.ftcdn.net/jpg/01/43/42/83/360_F_143428338_gcxw3Jcd0tJpkvvb53pfEztwtU9sxsgT.jpg" alt="replacing this in x years">  
-		 <h1 id="website-title">Eric‎‎ Chen (@echen0719)</h1>
+		 <h1 class="website-title">Eric‎‎ Chen (@echen0719)</h1>
 		 <p>REAL GOOD WEBSITE. PROMISED.</p>
 		 <p>MORE CSS COMING SOON.</p>
       </main>

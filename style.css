@@ -26,55 +26,67 @@ html {
 
 header {
 	background-color: grey;
-	padding: 2% 0;
+	padding: 36px 0;
 	display: flex;
 	align-items: center; 
 	justify-content: space-between;
 	position: relative;
 }
 
-.header-center {
+.menu-icon {
+    font-size: 42px;
+    cursor: pointer;
+    display: block;
+    padding: 0 20px;
+}
+
+#menu-toggle {
+    display: none;
+}
+
+.menu {
+    display: none;
+	position: absolute;
+	top: 50px; 
+    left: 10px; 
+    background-color: grey;
+    width: 10%; 
+}
+
+#menu-toggle:checked + .menu-icon + .menu {
+    display: flex;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0 10px;
+    margin: 0;
+}
+
+.menu ul li {
+    margin: 20px 0;
+}
+
+.menu ul li a {
+    text-decoration: none;
+	font-size: 24px;
+    color: white;
+}
+
+.name-img {
 	display: flex;
 	align-items: center; 
 	justify-content: center; 
 	position: absolute;
-	left: 50%;
-	transform: translateX(-37.5%);
+	left: 37.5%;
 }
 
-#header-title {
+.header-name {
 	font-size: 2em;
 	font-weight: bold;
 	white-space: nowrap;
 	margin-left: 10%;
-}
-
-.left-menu, .right-menu {
-	display: flex;
-	gap: 75%;
-	font-size: 1.5em;
-	font-weight: bold;
-	white-space: nowrap;
-}
-
-.left-menu {
-	margin-left: 5%;
-	justify-content: flex-start;
-}
-
-.right-menu {
-	margin-right: 6%;
-	justify-content: flex-end;
-	gap: 100%;
-}
-
-.left-menu a, .right-menu a {
-	color: white;
-	text-decoration: none;
-}
-
-.left-menu a:hover, .right-menu a:hover {
-	background-color: #333333;
+	margin-bottom: 5%;
 }
 
 #crash-test-dummy-img {
@@ -83,7 +95,7 @@ header {
     margin: 3% auto;
 }
 
-#website-title {
+.website-title {
 	font-size: 50px;
 	text-align: center;
 }
