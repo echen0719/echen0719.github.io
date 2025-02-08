@@ -9,24 +9,26 @@ The website uses basic HTML, CSS, and potentially Javascript for any interactive
 The following is a general breakdown of the expected file structure:
 
 * **index.html**: The main page of the website.
+
 * **aboutme.html**: Basic information about me.
-* **projects.html**: Projects I have worked on.
+* **projects/projects.html**: Main pages about my projects.
+* **projects/***: Folder with projects including subfolders
 * **contacts.html**: My contact information.
-* **faqs.html**: Questions that people may have.
+* More ideas will come
 
 * **style.css**: Contains the stylesheets for the website's design.
 
 * **script.js**: Creates an interactive place for users.
 
-* **images**: Folder containing any images used on the website.
+* **images/***: Folder containing any images used on the website.
 
-* **favicon.ico**: The website's favicon.
+* **images/favicon.ico**: The website's favicon.
 
   ... and possibly so much more.
 
 ## Software
 
-Currently, I use **Notepad++** and **VS Studio Code** to write and compile the HTML, CSS, and JS needed for this website.
+Currently, I use **Kate (KDE)** and **VS Studio Code** to write the HTML, CSS, and JS needed for this website.
 
 This site was built using [**GitHub Pages**](https://pages.github.com/). The files for this website are found in this repository.
 
