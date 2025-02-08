@@ -9,10 +9,11 @@ The website uses basic HTML, CSS, and potentially Javascript for any interactive
 The following is a general breakdown of the expected file structure:
 
 * **index.html**: The main page of the website.
-
-* **aboutme.html**: Basic information about me.
-* **projects/projects.html**: Main pages about my projects.
+* **blog/blog.html**: Main pages about my blog
+* **blog/***:  Folder with blogs, including articles
+* **projects/projects.html**: Main page about my projects.
 * **projects/***: Folder with projects including subfolders
+* **aboutme.html**: Basic information about me.
 * **contacts.html**: My contact information.
 * More ideas will come
 

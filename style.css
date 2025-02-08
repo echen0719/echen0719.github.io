@@ -1,0 +1,57 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    height: 100vh;
+    line-height: 1.25;
+    display: flex;
+}
+
+.nav { /* seems like this is the way for a left hand nav bar */
+    display: flex;
+    flex-direction: column;
+    min-width: 15em;
+    max-width: 15em;
+    height: 100vh;
+    background-color: #333;
+    padding: 20px;
+    box-sizing: border-box; /* I think this stops padding from adding empty space at bottom */
+    align-items: center;
+}
+
+.links {
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    text-align: left;
+    margin: 7% 0;
+    width: 100%;
+    padding-left: 5%;
+}
+
+.links:hover {
+    background-color: grey;
+    padding: 2%;
+} /* cool popping effect */
+
+.main-pfp {
+    height: 90px;
+    margin-bottom: 20px;
+}
+
+.main-pfp img {
+    height: 100%;
+}
+
+.content {
+    font-family: Anonymous Pro;
+    height: 100vh;
+    width: 100%;
+    background-color: black;
+    padding-left: 2%;
+    flex-grow: 1;
+}
+
+/*
+ * CSS is just about experimenting with different values
+ * until they work
+*/
