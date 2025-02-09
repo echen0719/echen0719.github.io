@@ -5,31 +5,26 @@ body {
     display: flex;
 }
 
+/* Start of Navigation Bar CSS */
+
+.main-pfp {
+    height: 90px;
+    margin-bottom: 10px;
+}
+
+.main-pfp img {
+    height: 100%;
+}
+
 .nav { /* seems like this is the way for a left hand nav bar */
     display: flex;
     flex-direction: column;
     min-width: 15em;
     max-width: 15em;
     background-color: #333;
-    padding: 20px 20px 5px 20px;
+    padding: 5px 20px 5px 20px;
     box-sizing: border-box; /* I think this stops padding from adding empty space at bottom */
     align-items: center;
-}
-
-.nav-footer {
-    text-decoration: none;
-    color: white;
-    margin-top: auto;
-}
-
-.nav-footer a {
-    text-decoration: none;
-    color: white;
-}
-
-.nav-footer a:hover {
-    background-color: grey;
-    padding: 2%;
 }
 
 .links {
@@ -47,14 +42,23 @@ body {
     padding: 2%;
 } /* cool popping effect */
 
-.main-pfp {
-    height: 90px;
-    margin-bottom: 20px;
+.nav-footer {
+    text-decoration: none;
+    color: white;
+    margin-top: auto;
 }
 
-.main-pfp img {
-    height: 100%;
+.nav-footer a {
+    text-decoration: none;
+    color: white;
 }
+
+.nav-footer a:hover {
+    background-color: grey;
+    padding: 2%;
+}
+
+/* End of Navigation Bar CSS */
 
 .content {
     font-family: Anonymous Pro;
