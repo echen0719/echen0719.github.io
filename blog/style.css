@@ -3,6 +3,7 @@ body {
     margin: 0;
     line-height: 1.25;
     display: flex;
+    background-color: black;
 }
 
 /* Start of Navigation Bar CSS */
@@ -18,9 +19,10 @@ body {
 
 .nav { /* seems like this is the way for a left hand nav bar */
     display: flex;
+    position: fixed;
+    height: 100%;
     flex-direction: column;
-    min-width: 15em;
-    max-width: 15em;
+    width: 15em;
     background-color: #333;
     padding: 0px 20px 5px 20px;
     box-sizing: border-box; /* I think this stops padding from adding empty space at bottom */
@@ -35,6 +37,7 @@ body {
     margin: 7% 0;
     width: 100%;
     padding-left: 5%;
+    font-size: 1.5em;
 }
 
 .links:hover {
@@ -62,13 +65,12 @@ body {
 
 .content {
     font-family: Anonymous Pro;
-    width: 100%;
-    background-color: black;
-    padding-left: 2%;
-    flex-grow: 1;
+    width: calc(100% - 15em);
+    margin-left: 15em;
+    padding-left: 2em;
 }
 
 /*
  * CSS is just about experimenting with different values
  * until they work
- */
+*/
