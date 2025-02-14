@@ -65,7 +65,7 @@ body {
 /* End of Navigation Bar CSS */
 
 .content {
-    font-family: Anonymous Pro;
+    font-family: sans-serif;
     width: calc(100% - 15em);
     margin-left: 15em;
     padding-left: 2em;
