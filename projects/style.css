@@ -17,7 +17,8 @@ body {
     height: 100%;
 }
 
-.nav { /* seems like this is the way for a left hand nav bar */
+.nav {
+    /* seems like this is the way for a left hand nav bar */
     display: flex;
     position: fixed;
     height: 100%;
@@ -25,7 +26,8 @@ body {
     width: 15em;
     background-color: #333;
     padding: 0px 20px 5px 20px;
-    box-sizing: border-box; /* I think this stops padding from adding empty space at bottom */
+    box-sizing: border-box;
+    /* I think this stops padding from adding empty space at bottom */
     align-items: center;
 }
 
@@ -43,7 +45,9 @@ body {
 .links:hover {
     background-color: grey;
     padding: 2%;
-} /* cool popping effect */
+}
+
+/* cool popping effect */
 
 .nav-footer {
     text-decoration: none;
