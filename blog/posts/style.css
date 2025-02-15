@@ -69,21 +69,10 @@ body {
 /* End of Navigation Bar CSS */
 
 .content {
+    font-family: sans-serif;
     width: calc(100% - 15em);
     margin-left: 15em;
     padding-left: 2em;
-}
-
-.post-item {
-    list-style-type: none;
-    padding: 0.5em 0;
-    border-bottom: 2px dashed rgba(255, 255, 255, 0.5);
-    width: 64vw;
-}
-
-.post-title {
-    text-decoration: none;
-    color: white;
 }
 
 /*
