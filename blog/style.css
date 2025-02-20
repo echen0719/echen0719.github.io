@@ -1,8 +1,9 @@
 .post-item {
     list-style-type: none;
     padding: 0.5em 0;
+    font-size: 1.25em;
     border-bottom: 2px dashed rgba(255, 255, 255, 0.5);
-    width: 64vw;
+    width: 75vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
