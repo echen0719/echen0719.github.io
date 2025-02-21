@@ -5,7 +5,6 @@
     padding: 0.5em 0;
     font-size: 1.25em;
     border-bottom: 2px dashed rgba(255, 255, 255, 0.5);
-    justify-content: space-between;
     align-items: center;
 }
 
