@@ -1,9 +1,0 @@
-baseURL = 'https://example.org/'
-languageCode = 'en-us'
-title = 'ABC Widgets, Inc.'
-[params]
-  subtitle = 'The Best Widgets on Earth'
-  [params.contact]
-    email = 'info@example.org'
-    phone = '+1 202-555-1212'
-theme = 'Poison'

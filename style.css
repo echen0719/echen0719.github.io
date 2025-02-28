@@ -1,0 +1,81 @@
+body {
+    font-family: sans-serif;
+    margin: 0;
+    line-height: 1.25;
+    display: flex;
+    background-color: black;
+}
+
+/* Start of Navigation Bar CSS */
+
+.main-pfp {
+    height: 90px;
+    margin-bottom: 10px;
+}
+
+.main-pfp img {
+    height: 100%;
+}
+
+.nav {
+    /* seems like this is the way for a left hand nav bar */
+    display: flex;
+    position: fixed;
+    height: 100%;
+    flex-direction: column;
+    width: 15em;
+    background-color: #333;
+    padding: 0px 20px 5px 20px;
+    box-sizing: border-box;
+    /* I think this stops padding from adding empty space at bottom */
+    align-items: center;
+}
+
+.links {
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    text-align: left;
+    margin: 7% 0;
+    width: 100%;
+    padding-left: 5%;
+    font-size: 1.5em;
+}
+
+.links:hover {
+    background-color: grey;
+    padding: 2%;
+}
+
+/* cool popping effect */
+
+.nav-footer {
+    text-decoration: none;
+    color: white;
+    margin-top: auto;
+    font-size: 1.05em;
+}
+
+.nav-footer a {
+    text-decoration: none;
+    color: white;
+}
+
+.nav-footer a:hover {
+    background-color: grey;
+    padding: 2%;
+}
+
+/* End of Navigation Bar CSS */
+
+.content {
+    font-family: sans-serif;
+    width: calc(100% - 15em);
+    margin-left: 15em;
+    padding-left: 2em;
+}
+
+/*
+ * CSS is just about experimenting with different values
+ * until they work
+*/
