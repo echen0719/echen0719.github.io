@@ -1,3 +1,25 @@
-baseURL = 'https://echen0719.github.io/'
-languageCode = 'en-us'
-title = 'echen0719'
+baseURL = "https://echen0719.github.io/"
+languageCode = "en-us"
+title = "echen0719"
+
+pagination.pagerSize = 10
+
+[[menu.main]]
+  name = "Home"
+  url = "/"
+  weight = 1
+
+[[menu.main]]
+  name = "Projects"
+  url = "/projects/"
+  weight = 2
+
+[[menu.main]]
+  name = "Blog"
+  url = "/blog/"
+  weight = 3
+
+[[menu.main]]
+  name = "About Me"
+  url = "/aboutme/"
+  weight = 4
