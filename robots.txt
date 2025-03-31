@@ -1,3 +1,5 @@
+# man, do whatever you need to
+
 ---
 permalink: /robots.txt
 ---
