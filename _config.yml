@@ -214,6 +214,7 @@ plugins:
   - jekyll-tabs
   - jekyll-terser
   - jekyll-toc
+  - jekyll-include-cache
   - jekyll-twitter-plugin
   - jemoji
 
