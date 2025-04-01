@@ -2,7 +2,9 @@
 layout: about
 title: About
 permalink: /
-subtitle: <a href='#'>Affiliations</a>. Address. Contacts. Motto. Etc.
+subtitle: | 
+  East Brunswick High School
+  I am a scientist!
 
 profile:
   align: right
