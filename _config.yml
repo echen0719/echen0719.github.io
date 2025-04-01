@@ -81,14 +81,11 @@ openpanel_analytics: # your Openpanel analytics client ID (format: XXXXXXXX-XXXX
 google_site_verification: # your google-site-verification ID (Google Search Console)
 bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 
-github_username: echen0719
-youtube_id: youtube.com/@echen0719 # your youtube channel id (youtube.com/@<youtube_id>)
-
 # -----------------------------------------------------------------------------
 # Blog
 # -----------------------------------------------------------------------------
 
-blog_name: Bl0o0o0o0o0oG # blog_name will be displayed in your blog page
+blog_name: BloOoOoOoOog # blog_name will be displayed in your blog page
 blog_description:
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts
@@ -294,7 +291,7 @@ lazy_loading_images: true # enables lazy loading of images (recommended)
 # Optional Features
 # -----------------------------------------------------------------------------
 
-enable_google_analytics: false # enables google analytics
+enable_google_analytics: true # enables google analytics
 enable_cronitor_analytics: false # enables cronitor RUM analytics
 enable_pirsch_analytics: false # enables Pirsch analytics (https://pirsch.io/)
 enable_openpanel_analytics: false # enables Openpanel analytics (https://openpanel.dev/)
