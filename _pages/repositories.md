@@ -2,7 +2,7 @@
 layout: page
 permalink: /repositories/
 title: Repositories
-description: description
+description: You are invited to check out my Github repositories. Most of these are for fun, but some of these are cool projects. Check them out! If you find any issues, just tell me through issues or email...
 nav: true
 nav_order: 4
 ---
