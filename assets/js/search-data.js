@@ -30,7 +30,18 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/repositories/";
           },
-        },{id: "post-a-post-with-plotly-js",
+        },{id: "post-init",
+        
+          title: "init",
+        
+        description: "description",
+        section: "Posts",
+        handler: () => {
+          
+            window.location.href = "/blog/2025/init/";
+          
+        },
+      },{id: "post-a-post-with-plotly-js",
         
           title: "a post with plotly.js",
         
@@ -382,12 +393,7 @@ ninja.data = [{
             window.location.href = "/blog/2015/formatting-and-links/";
           
         },
-      },{id: "books-the-godfather",
-          title: 'The Godfather',
-          description: "",
-          section: "Books",handler: () => {
-              window.location.href = "/books/the_godfather/";
-            },},{id: "projects-project-1",
+      },{id: "projects-project-1",
           title: 'project 1',
           description: "with background image",
           section: "Projects",handler: () => {
@@ -445,13 +451,6 @@ ninja.data = [{
         section: 'Socials',
         handler: () => {
           window.open("https://github.com/echen0719", "_blank");
-        },
-      },{
-        id: 'social-inspire',
-        title: 'Inspire HEP',
-        section: 'Socials',
-        handler: () => {
-          window.open("https://inspirehep.net/authors/", "_blank");
         },
       },{
         id: 'social-leetcode',
