@@ -1,4 +1,9 @@
+# man, do whatever you need to
+
+---
+permalink: /robots.txt
+---
 User-agent: *
 Disallow:
 
-Sitemap: https://echen0719.github.io/sitemap.xml
+Sitemap: {{ site.baseurl | prepend: site.url }}/sitemap.xml
