@@ -147,8 +147,8 @@ pagination:
         {% endif %}
       </p>
       <p class="post-tags">
-        <a href="{{ year | prepend: '/blog/' | relative_url }}">
-          <i class="fa-solid fa-calendar fa-sm"></i> {{ year }} </a>
+        <!-- <a href="{{ year | prepend: '/blog/' | relative_url }}"
+          <i class="fa-solid fa-calendar fa-sm"></i> {{ year }} </a> -->
 
           {% if tags != "" %}
           &nbsp; &middot; &nbsp;
