@@ -101,8 +101,8 @@ related_blog_posts:
 # Giscus comments (RECOMMENDED)
 # Follow instructions on https://giscus.app/ to setup for your repo to fill out the information below.
 giscus:
-  repo: # <your-github-user-name>/<your-github-repo-name>
-  repo_id: # leave empty or specify your repo_id (see https://giscus.app/)
+  repo: echen0719/echen0719.github.io
+  repo_id: R_kgDOMnxrXQ
   category: Comments # name of the category under which discussions will be created
   category_id: # leave empty or specify your category_id (see https://giscus.app/)
   mapping: title # identify discussions by post title
@@ -234,11 +234,11 @@ terser:
 
 jekyll-archives:
   posts:
-    enabled: [year, tags, categories] # enables year, tag and category archives (remove if you need to disable one of them).
-    permalinks:
-      year: "/blog/:year/"
-      tags: "/blog/:type/:name/"
-      categories: "/blog/:type/:name/"
+    # enabled: [year, tags, categories] # enables year, tag and category archives (remove if you need to disable one of them).
+    # permalinks:
+      # year: "/blog/:year/"
+      # tags: "/blog/:type/:name/"
+      # categories: "/blog/:type/:name/"
   #books:
     #enabled: [year, tags, categories] # enables year, tag and category archives (remove if you need to disable one of them).
 
