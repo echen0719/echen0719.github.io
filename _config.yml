@@ -95,7 +95,7 @@ pagination:
   enabled: true
 
 related_blog_posts:
-  enabled: true
+  enabled: false
   max_related: 5
 
 # Giscus comments (RECOMMENDED)
@@ -546,14 +546,8 @@ jekyll_get_json:
 
 jsonresume:
   - basics
-  - work
   - education
-  - publications
-  - projects
-  - volunteer
   - awards
-  - certificates
   - skills
   - languages
   - interests
-  - references
