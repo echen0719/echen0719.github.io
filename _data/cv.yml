@@ -94,7 +94,7 @@
         - Want to do lab work and experimentation
 
 - title: Other Interests
-  type: list
+  type: nested_list
   contents:
     - title: Cross Country
       items:
