@@ -85,7 +85,8 @@ pagination:
 
                     <p class="post-meta">
                       {{ read_time }} min read &nbsp; &middot; &nbsp;
-                        <i class="fa-solid fa-calendar fa-sm"></i> {{ year }}
+                      <a href="{{ year | prepend: '/blog/' | relative_url }}">
+                        <i class="fa-solid fa-calendar fa-sm"></i> {{ year }} </a>
                     </p>
                   </div>
                 </div>
@@ -147,8 +148,8 @@ pagination:
         {% endif %}
       </p>
       <p class="post-tags">
-        # <!-- <a href="{{ year | prepend: '/blog/' | relative_url }}"
-          # <i class="fa-solid fa-calendar fa-sm"></i> {{ year }} </a> -->
+        <a href="{{ year | prepend: '/blog/' | relative_url }}">
+          <i class="fa-solid fa-calendar fa-sm"></i> {{ year }} </a>
 
           {% if tags != "" %}
           &nbsp; &middot; &nbsp;
