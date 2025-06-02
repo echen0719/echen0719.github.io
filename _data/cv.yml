@@ -73,6 +73,10 @@
     - title: <a href="https://github.com/echen0719/minecraft-modding">minecraft-modding</a>
       year: March 2025 - now
       description: Source files for a few Minecraft Mods I have made over the past few months.
+  contents:
+    - title: <a href="https://github.com/echen0719/code-suite/tree/main/Machine%20Learning">machine-learning</a>
+      year: May 2025 - now
+      description: Introductory learning steps to understand PyTorch and maybe TensorFlow
 
 - title: Honors and Awards
   type: time_table
