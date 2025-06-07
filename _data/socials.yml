@@ -19,7 +19,7 @@ github_username: echen0719 # your GitHub user name
 # keybase_username: # your keybase user name
 # lastfm_id: # your lastfm id
 # lattes_id: # your ID on Lattes (Brazilian Lattes CV)
-# leetcode_id: echen0719 # your LeetCode id
+leetcode_id: echen0719 # your LeetCode id
 # linkedin_username: # your LinkedIn user name
 # mastodon_username: # your mastodon instance+username in the format instance.tld/@username
 # medium_username: # your Medium username
@@ -34,7 +34,7 @@ github_username: echen0719 # your GitHub user name
 # scopus_id: # your profile on Scopus
 # semanticscholar_id: # your Semantic Scholar ID
 # spotify_id: # your spotify id
-# stackoverflow_id: # your stackoverflow id
+stackoverflow_id: 30747094
 # telegram_username: # your Telegram user name
 # unsplash_id: # your unsplash id
 # wechat_qr: # filename of your wechat qr-code saved as an image (e.g., wechat-qr.png if saved to assets/img/wechat-qr.png)
