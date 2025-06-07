@@ -57,6 +57,20 @@ ninja.data = [{
           window.open("https://github.com/echen0719", "_blank");
         },
       },{
+        id: 'social-leetcode',
+        title: 'LeetCode',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://leetcode.com/u/echen0719/", "_blank");
+        },
+      },{
+        id: 'social-stackoverflow',
+        title: 'Stackoverflow',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://stackoverflow.com/users/30747094", "_blank");
+        },
+      },{
         id: 'social-youtube',
         title: 'YouTube',
         section: 'Socials',
