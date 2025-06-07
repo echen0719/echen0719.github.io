@@ -22,9 +22,6 @@
             - Biology
             - US History
             - Intro to Comp Sci
-            - Intro to Business
-            - Spanish
-            - 3D Design
         - title: 2024-2025
           contents:
             - English
@@ -32,7 +29,6 @@
             - Chemistry
             - AP US History
             - AP Comp Sci
-            - Spanish
 
 # - title: Experience
 #  type: time_table
@@ -73,6 +69,9 @@
     - title: <a href="https://github.com/echen0719/minecraft-modding">minecraft-modding</a>
       year: March 2025 - now
       description: Source files for a few Minecraft Mods I have made over the past few months.
+    - title: <a href="https://github.com/echen0719/code-suite/tree/main/Machine%20Learning">machine-learning</a>
+      year: May 2025 - now
+      description: Introductory learning steps to understand PyTorch and maybe TensorFlow
 
 - title: Honors and Awards
   type: time_table
