@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: Student at <a href='https://www.ebnet.org'>East Brunswick High School</a> | Aspiring Computer Scientist
+subtitle: Student at <a href='https://www.ebnet.org'>East Brunswick HS</a> | Aspiring Computer Scientist
 
 profile:
   align: right

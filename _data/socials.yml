@@ -19,7 +19,6 @@ github_username: echen0719 # your GitHub user name
 # keybase_username: # your keybase user name
 # lastfm_id: # your lastfm id
 # lattes_id: # your ID on Lattes (Brazilian Lattes CV)
-leetcode_id: echen0719 # your LeetCode id
 # linkedin_username: # your LinkedIn user name
 # mastodon_username: # your mastodon instance+username in the format instance.tld/@username
 # medium_username: # your Medium username
@@ -45,6 +44,7 @@ stackoverflow_id: 30747094
 # x_username: # your X handle
 youtube_id: echen0719 # your youtube channel id (youtube.com/@<youtube_id>)
 # zotero_username: # your zotero username
+leetcode_id: echen0719 # your LeetCode id
 #custom_social: # can be any name here other than the ones already defined above
   #logo: https://www.alberteinstein.com/wp-content/uploads/2024/03/cropped-favicon-192x192.png # can be png, svg, jpg
   #title: Custom Social
