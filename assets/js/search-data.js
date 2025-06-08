@@ -25,7 +25,7 @@ ninja.data = [{
           },
         },{id: "nav-repositories",
           title: "Repositories",
-          description: "You are invited to check out my Github repositories. Most of these are for fun, but some of these are cool projects. Check them out! If you find any issues, just tell me through issues or email...",
+          description: "You are invited to check out my Github repositories. Most of these are for fun, but some of these are cool projects. Check them out! My main repo is code-suite which has all types of programs. If you find any issues, just tell me through Github Issues or email...",
           section: "Navigation",
           handler: () => {
             window.location.href = "/repositories/";
@@ -37,9 +37,9 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/resume/";
           },
-        },{id: "projects-project-1",
-          title: 'project 1',
-          description: "with background image",
+        },{id: "projects-minecraft-quartz-mod",
+          title: 'Minecraft Quartz Mod',
+          description: "A Minecraft 1.12.2 Mod that adds quartz equipments and utilities.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/1_project/";
             },},{
