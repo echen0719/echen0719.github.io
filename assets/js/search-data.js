@@ -57,13 +57,6 @@ ninja.data = [{
           window.open("https://github.com/echen0719", "_blank");
         },
       },{
-        id: 'social-leetcode',
-        title: 'LeetCode',
-        section: 'Socials',
-        handler: () => {
-          window.open("https://leetcode.com/u/echen0719/", "_blank");
-        },
-      },{
         id: 'social-stackoverflow',
         title: 'Stackoverflow',
         section: 'Socials',
@@ -76,6 +69,13 @@ ninja.data = [{
         section: 'Socials',
         handler: () => {
           window.open("https://youtube.com/@echen0719", "_blank");
+        },
+      },{
+        id: 'social-leetcode',
+        title: 'LeetCode',
+        section: 'Socials',
+        handler: () => {
+          window.open("https://leetcode.com/u/echen0719/", "_blank");
         },
       },{
       id: 'light-theme',
