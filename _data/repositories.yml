@@ -1,8 +1,9 @@
 github_users:
 
-repo_description_lines_max: 2
+repo_description_lines_max: 3
 
 github_repos:
   - echen0719/code-suite
   - echen0719/general-script-files
   - echen0719/minecraft-modding
+  - echen0719/crypto-general

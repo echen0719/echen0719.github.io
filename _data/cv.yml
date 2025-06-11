@@ -72,6 +72,23 @@
     - title: <a href="https://github.com/echen0719/code-suite/tree/main/Machine%20Learning">machine-learning</a>
       year: May 2025 - now
       description: Introductory learning steps to understand PyTorch and maybe TensorFlow
+    - title: <a href="https://github.com/echen0719/roblox-studio-scripts">roblox-studio-scripts</a>
+      year: May 2025 - now
+      description: Collection of server and client side scripts for various different Roblox games created by me.
+
+- title: Skills
+  type: time_table
+  contents:
+    - title: Linux Usage
+    description: Fluent with Linux command prompt usage and basic scripting. Have some prerequisite knowledge in system administrator tools and operation.
+    - title: Git Control
+    description: Has a good understanding of git through command line and branching/merging.
+    - title: PyTorch
+    description: Currently have a novice understanding of the Python ML library, but currently working on learning to implement nueral networks into models.
+    - title: Spanish Speaking/Writing
+    description: Still learning Spanish in school and currently have a B1 (CEFR) level understanding.
+    - title: Blockchain Technology
+    description: Have some knowledge in applying technologies already developed for cryptocurrency.
 
 - title: Honors and Awards
   type: time_table
@@ -85,16 +102,23 @@
   contents:
     - title: Computer Science
       items:
-        - Much passion to learn algorithms and software design.
+        - Much passion to learn efficent algorithms and software design.
         - Interested in using computing for fun and real world problems.
+    - title: Mathematics:
+      items:
+        - Studying ways abstract and practical mathematics can aid computing.
+        - Want to apply mathematics while working with machine learning.
     - title: Chemistry
       items:
-        - Fascinated with possible applications of chemistry
-        - Want to do lab work and experimentation
+        - Fascinated with possible real-world applications of chemistry.
+        - Want to do lab work and experimentation.
 
 - title: Other Interests
   type: nested_list
   contents:
+    - title: Volunteering
+      items:
+        - "Volunteer frequently at the public library when avaliable to organize and improve the space."
     - title: Cross Country
       items:
         - "5K PR: 24:57"
