@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: Student at <a href='https://www.ebnet.org'>East Brunswick HS</a> | Aspiring Computer Scientist
+subtitle: Aspiring Computer Scientist and Machine Learning Engineer
 
 profile:
   align: right
@@ -25,3 +25,4 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
+**Welcome and nice to meet you!** My name is Eric and I am currently a sophomore attending <a href='https://www.ebnet.org'>East Brunswick HS</a>. My interests lie within practical uses of unsupervised and supervised learning and applying algorithms to increase performance on software. I am currently spending my time learning the general knowledges of *machine learning* and *software development*.
