@@ -80,15 +80,15 @@
   type: time_table
   contents:
     - title: Linux Usage
-    description: Fluent with Linux command prompt usage and basic scripting. Have some prerequisite knowledge in system administrator tools and operation.
+      description: Fluent with Linux command prompt usage and basic scripting. Have some prerequisite knowledge in system administrator tools and operation.
     - title: Git Control
-    description: Has a good understanding of git through command line and branching/merging.
+      description: Has a good understanding of git through command line and branching/merging.
     - title: PyTorch
-    description: Currently have a novice understanding of the Python ML library, but currently working on learning to implement nueral networks into models.
+      description: Currently have a novice understanding of the Python ML library, but currently working on learning to implement neural networks into models.
     - title: Spanish Speaking/Writing
-    description: Still learning Spanish in school and currently have a B1 (CEFR) level understanding.
+      description: Still learning Spanish in school and currently have a B1 (CEFR) level understanding.
     - title: Blockchain Technology
-    description: Have some knowledge in applying technologies already developed for cryptocurrency.
+      description: Have some knowledge in applying technologies already developed for cryptocurrency.
 
 - title: Honors and Awards
   type: time_table
