@@ -9,6 +9,8 @@ nav_order: 4
 ###### You are invited to check out my Github repositories. Most of these are for fun, but some of these are cool projects. Check them out! If you find any issues, just tell me through Github Issues or email...
 #### 👉 My main repo is **code-suite** which has all types of programs.
 
+---
+
 {% if site.data.repositories.github_users %}
 
 ## GitHub users
