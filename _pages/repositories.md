@@ -7,6 +7,8 @@ nav: true
 nav_order: 4
 ---
 
+#### My main repo is **code-suite** which has all types of programs.
+
 {% if site.data.repositories.github_users %}
 
 ## GitHub users
@@ -37,7 +39,6 @@ nav_order: 4
 
 {% if site.data.repositories.github_repos %}
 
-### My main repo is **code-suite** which has all types of programs.
 ## GitHub Repositories
 
 <div class="repositories d-flex flex-wrap flex-md-row flex-column justify-content-between align-items-center">
