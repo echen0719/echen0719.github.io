@@ -26,3 +26,12 @@ latest_posts:
 ---
 
 **Welcome and nice to meet you!** My name is Eric and I am currently a sophomore attending <a href='https://www.ebnet.org'>East Brunswick HS</a>. My interests lie within practical uses of unsupervised and supervised learning and applying algorithms to increase performance on software. I am currently spending my time learning the general knowledges of *machine learning* and *software development*.
+
+In addition to my coursework, I spend a large portion of my free time learning more in the field of my interests and working on related personal *programming projects*. I look forward to applying my skills in professional settings in the future.
+
+Right now I am focused on:
+- Learning ML Frameworks like PyTorch and Scikit-learn
+- Understanding data structures and algorithms in Java/Python
+- Working on admin and scripting skills with Linux
+
+Feel free to explore my projects and reach out through if you are interested in collaborating or discussing anything!
