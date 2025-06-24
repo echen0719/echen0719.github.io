@@ -9,13 +9,14 @@ related_publications: true
 ---
 
 <!DOCTYPE html>
-  <html>
-  <head>
-  </head>
+<html>
 <body>
-  <form action="/action_page.php">
   <input type="file" name="file" accept="image/*">
-  <input type="submit">
+  <script>
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+    var file = event.target.files[0];
+    }
+  </script>
   </form>
 </body>
 </html>
