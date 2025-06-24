@@ -33,8 +33,9 @@
             
             // https://www.youtube.com/watch?v=Vs730jsRgO8
             const session = await ort.InferenceSession.create('/assets/models/model.onnx');
-            const inputTensor = new ort.Tensor('float32', inputData, [1, 3, 32, 32]);  
-            const outputMap = await session.run([inputTensor]);
+            const inputTensor = new ort.Tensor('float32', inputData, [1, 3, 32, 32]);
+            const feeds = {'input.1': inputTensor};
+            const outputMap = await session.run(feeds);
             const outputTensor = outputMap.values().next().value;
             const tensorData = outputTensor.data;
 
