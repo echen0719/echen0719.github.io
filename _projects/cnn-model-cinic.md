@@ -11,7 +11,7 @@ related_publications: true
 <html>
 <body>
   <input type="file" name="file" accept="image/*" id="fileInput">
-  <div id="fileInfo"></div>
+  <div id="output"></div>
   {% include torch-model.html %}
 </body>
 </html>
