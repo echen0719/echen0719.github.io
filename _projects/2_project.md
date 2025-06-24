@@ -8,7 +8,6 @@ category: work
 related_publications: true
 ---
 
-<!DOCTYPE html>
 <html>
 <body>
   <input type="file" name="file" accept="image/*">
