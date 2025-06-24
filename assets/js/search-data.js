@@ -46,7 +46,7 @@ ninja.data = [{
           title: 'PyTorch CINIC-10 Model',
           description: "description",
           section: "Projects",handler: () => {
-              window.location.href = "/projects/2_project/";
+              window.location.href = "/projects/cnn-model-cinic/";
             },},{
         id: 'social-email',
         title: 'email',
