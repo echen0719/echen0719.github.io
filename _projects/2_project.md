@@ -14,7 +14,7 @@ related_publications: true
   </head>
 <body>
   <form action="/action_page.php">
-  <input type="file" id="myFile" name="filename">
+  <input type="file" name="file" accept="image/*">
   <input type="submit">
   </form>
 </body>
