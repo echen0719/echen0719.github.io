@@ -1,6 +1,7 @@
 <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
 <script>
 // I have like only a few hours of JS experience, most of this was copy-paste
+  const labels = ["airplane", "automobile", "bird", "cat", "deer", "dog", "frog", "horse", "ship", "truck"];
   document.addEventListener("DOMContentLoaded", async function () {
     const input = document.getElementById('fileInput');
     const outputDiv = document.getElementById('output');
@@ -38,7 +39,17 @@
             const outputTensor = outputMap['22'];
             const tensorData = outputTensor.data;
 
-            document.getElementById('output').innerHTML = tensorData;
+            const maxIndex = 0;
+            const maxValue = tensorData[0];
+
+            for (const i = 1; i < tensorData.length; i++) {
+              if (tensorData[i] > maxValue) {
+                maxValue = tensorData[i];
+                maxIndex = i;
+              }
+            }
+            const predictedLabel = labels[maxIndex];
+            document.getElementById('output').innerHTML = predictedLabel;
           };
           img.src = event.target.result;
         };
