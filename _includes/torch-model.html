@@ -35,7 +35,7 @@
             const inputTensor = new ort.Tensor('float32', inputData, [1, 3, 32, 32]);
             const feeds = {'input.1': inputTensor};
             const outputMap = await session.run(feeds);
-            const outputTensor = outputMap.values().next().value;
+            const outputTensor = outputMap['22'];
             const tensorData = outputTensor.data;
 
             document.getElementById('output').innerHTML = tensorData;
