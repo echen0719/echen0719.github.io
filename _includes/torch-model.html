@@ -1,6 +1,6 @@
-// I have like only a few hours of JS experience, most of this was copy-paste
 <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
 <script>
+// I have like only a few hours of JS experience, most of this was copy-paste
   document.addEventListener("DOMContentLoaded", async function () {
     const input = document.getElementById('fileInput');
     const outputDiv = document.getElementById('output');
@@ -32,7 +32,7 @@
             
             // https://www.youtube.com/watch?v=Vs730jsRgO8
             const session = await ort.InferenceSession.create('/assets/models/model.onnx');
-            const inputTensor = new ort.Tensor(inputData, 'float32', [1, 3, 32, 32]);  
+            const inputTensor = new ort.Tensor('float32', inputData, [1, 3, 32, 32]);  
             const outputMap = await session.run([inputTensor]);
             const outputTensor = outputMap.values().next().value;
             const tensorData = outputTensor.data;
