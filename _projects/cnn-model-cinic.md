@@ -12,17 +12,6 @@ related_publications: true
 <body>
   <input type="file" name="file" accept="image/*" id="fileInput">
   <div id="fileInfo"></div>
-  <script>
-    document.getElementById('fileInput').addEventListener('change', function(event) {
-    var file = event.target.files[0];
-    if (file) {
-      var fileInfo = `
-        <p>File Name: ${file.name}</p>
-        <p>File Size: ${file.size} bytes</p>
-        <p>File Type: ${file.type}</p>
-      `;
-    document.getElementById('fileInfo').innerHTML = fileInfo;
-    });
-  </script>
+  {% include torch-model.html %}
 </body>
 </html>
