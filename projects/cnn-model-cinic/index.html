@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         const inputTensor = new ort.Tensor('float32', inputData, [1, 3, 32, 32]);
                         const feeds = {'input.1': inputTensor};
                         const outputMap = await session.run(feeds);
-                        const outputTensor = outputMap['22'];
+                        const outputTensor = outputMap['2002'];
                         const tensorData = outputTensor.data;
 
                         // https://gist.github.com/cyphunk/6c255fa05dd30e69f438a930faeb53fe
