@@ -40,10 +40,10 @@
             const outputTensor = outputMap['22'];
             const tensorData = outputTensor.data;
 
-            const maxIndex = 0;
-            const maxValue = tensorData[0];
+            let maxIndex = 0;
+            let maxValue = tensorData[0];
 
-            for (const i = 1; i < tensorData.length; i++) {
+            for (let i = 1; i < tensorData.length; i++) {
               if (tensorData[i] > maxValue) {
                 maxValue = tensorData[i];
                 maxIndex = i;
