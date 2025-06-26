@@ -11,7 +11,9 @@ related_publications: true
 <html>
 <body>
   <label for="fileInput"><strong>Upload Image:</strong></label>
-  <input type="file" name="file" accept="image/*" id="fileInput">
+  <input id="fileInput" type="file" name="file" accept="image/*" id="fileInput">
+
+  <br>
 
   <label for="imageUrl"><strong>Or Enter Image URL:</strong></label>
   <input type="text" id="imageUrl" placeholder="https://somewebsite.com/somepicture.png" style="width: 25%;">
