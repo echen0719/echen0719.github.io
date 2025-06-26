@@ -23,13 +23,23 @@ document.addEventListener("DOMContentLoaded", async function () {
                         ctx.drawImage(img, 0, 0, 32, 32); // 32x32 image size
                         const imageData = ctx.getImageData(0, 0, 32, 32);
 
+                        const mean = [0.485, 0.456, 0.406];
+                        const std  = [0.229, 0.224, 0.225];
+
                         // https://developer.mozilla.org/en-US/docs/Web/API/ImageData/data
                         const inputData = new Float32Array(32 * 32 * 3);
-                        let index = 0;
-                        for (let i = 0; i < imageData.data.length; i += 4) {
-                            inputData[index++] = imageData.data[i] / 255.0;
-                            inputData[index++] = imageData.data[i + 1] / 255.0;
-                            inputData[index++] = imageData.data[i + 2] / 255.0;
+                        for (let i = 0; i < 32; i++) {
+                            for (let j = 0; j < 32; j++) {
+                                const pixelIndex = (i * 32 + j) * 4;
+                                const r = imageData.data[pixelIndex] / 255.0;
+                                const g = imageData.data[pixelIndex + 1] / 255.0;
+                                const b = imageData.data[pixelIndex + 2] / 255.0;
+
+                                const idx = i * 32 + j;
+                                inputData[idx] = (r - mean[0]) / std[0];
+                                inputData[1024 + idx] = (g - mean[1]) / std[1];
+                                inputData[2048 + idx] = (b - mean[2]) / std[2];
+                            }
                         }
 
                         // https://www.youtube.com/watch?v=Vs730jsRgO8
@@ -42,9 +52,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                         // https://gist.github.com/cyphunk/6c255fa05dd30e69f438a930faeb53fe
                         function softmax(logits) {
-                            return logits.map(function(value,index) {
-                                return (Math.exp(value) / logits.map( function(y){ return Math.exp(y)}).reduce( function(a, b){ return a + b})) * 100
-                            })
+                            const highest = Math.max(...logits);
+                            const shifted = logits.map(score => Math.exp(score - highest));
+                            const total = shifted.reduce((acc, val) => acc + val, 0);
+                            return shifted.map(prob => (prob / total) * 100);
                         }
 
                         predictions = softmax(tensorData)
@@ -61,7 +72,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         const predictedLabel = labels[maxIndex];
                         const predictedConf = predictions[maxIndex].toFixed(2);
 
-                        document.getElementById('output').innerHTML = `I am guessing <strong>${predictedLabel}</strong> was your image with ${predictedConf}% confidence!`;
+                        document.getElementById('output').innerHTML = `${predictions} and I am guessing <strong>${predictedLabel}</strong> was your image with ${predictedConf}% confidence!`;
                     };
                 img.src = event.target.result;
                 };
