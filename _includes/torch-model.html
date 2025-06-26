@@ -1,4 +1,5 @@
 <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+<script src='https://cdn.plot.ly/plotly-3.0.1.min.js'></script>
 <script>
 // I have like only a few hours of JS experience, most of this was copy-paste
 const labels = ["airplane", "automobile", "bird", "cat", "deer", "dog", "frog", "horse", "ship", "truck"];
@@ -72,7 +73,15 @@ document.addEventListener("DOMContentLoaded", async function () {
                         const predictedLabel = labels[maxIndex];
                         const predictedConf = predictions[maxIndex].toFixed(2);
 
-                        document.getElementById('output').innerHTML = `${predictions} and I am guessing <strong>${predictedLabel}</strong> was your image with ${predictedConf}% confidence!`;
+                        var data = [{
+                            type: 'bar',
+                            x: labels,
+                            y: predictions
+                        }];
+
+                        document.getElementById('output').innerHTML = `I am guessing <strong>${predictedLabel}</strong> was your image with ${predictedConf}% confidence!`;
+
+                        Plotly.newPlot('barChart', data, {autosize: true, margin: {t: 0, b: 30, l: 30, r: 10}}, {displayModeBar: false});
                     };
                 img.src = event.target.result;
                 };

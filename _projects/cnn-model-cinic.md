@@ -12,6 +12,7 @@ related_publications: true
 <body>
   <input type="file" name="file" accept="image/*" id="fileInput">
   <div id="output" style="padding: 1em 0;"></div>
+  <div id="barChart"></div>
   {% include torch-model.html %}
 </body>
 </html>
