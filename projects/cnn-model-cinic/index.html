@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
             processAndPredict(file);
         }
         catch (error) {
-            document.getElementById('output').textContent = 'Upload error: ' + err.message;
+            document.getElementById('output').textContent = 'Upload error: ' + error.message;
         }
     });
 });
