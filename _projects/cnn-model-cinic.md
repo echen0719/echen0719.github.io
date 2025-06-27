@@ -12,12 +12,16 @@ related_publications: true
 <body>
   <div style="border-style: solid; border-width: 3px; border-radius: 5px; padding: 8px 3px 3px 5px">
     <label for="fileInput"><strong>Upload Image:</strong></label>
-    <input id="fileInput" type="file" name="file" accept="image/*" id="fileInput">
+    <input id="fileInput" type="file" name="file" accept="image/*" id="fileInput" hidden>
+    <button type="button" onclick="document.getElementById('fileInput').click()">Browse...</button>
     <br>
     <label for="imageUrl"><strong>Or Enter Image URL:</strong></label>
     <input type="text" id="imageUrl" placeholder="https://somewebsite.com/somepicture.png" style="width: 25%;">
     <button id="uploadBtn">Upload</button>
-    <img id="preview" style="float: right; transform: scale(2.5); padding-right: 2%">
+    <div style="float: right; padding-right: 2%; display: flex; align-items: center;">
+      <h5 style="margin: 0; padding-right: 10px;">Preview:</h5>
+      <img id="preview">
+    </div>
     <br>
     <label for="randImg"><strong>Or Pick Random:</strong></label>
     <button id="randImg">Random Image</button>
