@@ -578,7 +578,7 @@ async function processAndPredict(file) {
             const inputTensor = new ort.Tensor('float32', inputData, [1, 3, 32, 32]);
             const feeds = {'input.1': inputTensor};
             const outputMap = await session.run(feeds);
-            const outputTensor = outputMap['498'];
+            const outputTensor = outputMap['495'];
             const tensorData = outputTensor.data;
 
             function softmax(logits) {
