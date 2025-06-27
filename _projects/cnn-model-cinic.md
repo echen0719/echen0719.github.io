@@ -23,7 +23,7 @@ related_publications: true
     <button id="randImg">Random Image</button>
     <br><br>
     <div style="display: flex; align-items: center;">
-      <h5 style="margin: 0; padding-right: 1%;">Preview:</h5>
+      <label for="preview" style="margin: 0; padding-right: 1%;"><strong>Preview:</strong></label>
       <img id="preview">
     </div>
   </div>
