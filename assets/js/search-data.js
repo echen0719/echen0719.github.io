@@ -42,11 +42,11 @@ ninja.data = [{
           description: "A Minecraft 1.12.2 Mod that adds quartz equipments and utilities.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/1_project/";
-            },},{id: "projects-pytorch-cinic-10-model",
-          title: 'PyTorch CINIC-10 Model',
-          description: "description",
+            },},{id: "projects-image-classification-with-pretrained-cnn-model",
+          title: 'Image Classification with Pretrained CNN Model',
+          description: "A model built off the MobileNet V3 model on the CIFAR-10/CINIC-10 datasets.",
           section: "Projects",handler: () => {
-              window.location.href = "/projects/cnn-model-cinic/";
+              window.location.href = "/projects/img-class-cnn/";
             },},{
         id: 'social-email',
         title: 'email',
