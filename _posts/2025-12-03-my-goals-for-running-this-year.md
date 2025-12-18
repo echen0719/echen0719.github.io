@@ -42,15 +42,15 @@ Realistically, I still want to put a more statistical side to this story. If you
   <tbody>
     <tr>
       <td style="border: 1px solid #ddd; padding: 8px;">800m</td>
-      <td style="border: 1px solid #ddd; padding: 8px;">x</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">2:19</td>
     </tr>
     <tr>
       <td style="border: 1px solid #ddd; padding: 8px;">1600m</td>
-      <td style="border: 1px solid #ddd; padding: 8px;">y</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">4:59</td>
     </tr>
     <tr>
       <td style="border: 1px solid #ddd; padding: 8px;">3200</td>
-      <td style="border: 1px solid #ddd; padding: 8px;">z</td>
+      <td style="border: 1px solid #ddd; padding: 8px;">11:29</td>
     </tr>
   </tbody>
 </table>
