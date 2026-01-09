@@ -61,3 +61,10 @@ Realistically, I still want to put a more statistical side to this story. If you
 No matter what type of runner you are -- a couch potato or an experienced runner -- it is possible for anyone to set goals and accomplish them. Even if you feel like you don't have the ability to do something, why don't you just try it? There is no harm in trying!
 
 I ran 27:01 for my first 5000m race in the Xavier Invitational on Ocean Breeze and was probably bottom 5% of my race. So what? Nothing is stopping me from putting in the work. For me, in just 7 to 8 months, I dropped huge amounts of time and I ran a 5:39 in a 1600m and won my heat. Even as my progress isn't favorable for me right now as I end this year, I still am willing to put in effort to do what I love. I just want you to fall in love with an activity and stick with it. 
+
+---
+
+<div style="display: flex; align-items: center; height: 160px;">
+  <h5>Oh yeah, do you want to see my Strava statistics? Here ya go...</h5>
+  <iframe height='160' width='300' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/athletes/145056879/activity-summary/9d3d57b67a1c8f4f70c8edfb95b16f04c098b925' style="margin-left: auto;"></iframe>
+</div>
