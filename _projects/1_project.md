@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Minecraft Quartz Mod
-description: A Minecraft 1.12.2 Mod that adds quartz equipments and utilities.
-img: assets/img/quartz.png
+title: Server Scan++ Mod
+description: Fabric Minecraft 1.21.11 Mod that scans the internet for Minecraft servers
+img: assets/img/serverscan.png
 importance: 1
 category: work
 related_publications: true
