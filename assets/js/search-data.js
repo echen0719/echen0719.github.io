@@ -37,9 +37,9 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/resume/";
           },
-        },{id: "projects-minecraft-quartz-mod",
-          title: 'Minecraft Quartz Mod',
-          description: "A Minecraft 1.12.2 Mod that adds quartz equipments and utilities.",
+        },{id: "projects-server-scan-mod",
+          title: 'Server Scan++ Mod',
+          description: "Fabric Minecraft 1.21.11 Mod that scans the internet for Minecraft servers",
           section: "Projects",handler: () => {
               window.location.href = "/projects/1_project/";
             },},{id: "projects-image-classification-with-pretrained-cnn-model",
