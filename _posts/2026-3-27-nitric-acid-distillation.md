@@ -43,7 +43,7 @@ To produce nitric acid, the following reaction is performed:
 
 $$ \ce{H2SO4 (aq) + Ca(NO3)2 (aq) -> 2HNO3 (aq) + CaSO4 (s)} $$
 
-from the sulfuric acid in the drain cleaner and calcium nitrate in the fertilizer to produce mostly solid $$ \ce{CaSO4} $$ as a byproduct.
+from the sulfuric acid in the drain cleaner and calcium nitrate in the fertilizer to produce mostly solid $$ \ce{CaSO4} $$ as a byproduct. Where calcuim nitrate is found in the form of calcium-ammonium nitrate with the formula $$ \ce{5 Ca(NO3)2 . NH4NO3 . 10 H2O} $$.
 
 To produce 250 mL (355g @ 1.42 g/mL) of nitric acid with a 92% concentration source of sulfuric acid, a total of
 
@@ -61,5 +61,13 @@ $$
 is needed along with
 
 $$
-
+355 \ce{\pu{g} HNO3}
+\times \frac{1 \ce{\pu{mol} HNO3}}{63.01 \ce{\pu{g} HNO3}}
+\times \frac{1 \ce{\pu{mol} Ca(NO3)2}}{2 \ce{\pu{mol} HNO3}}
+\times \frac{164.09 \ce{\pu{g} Ca(NO3)2}}{1 \ce{\pu{mol} Ca(NO3)2}}
+\times \frac{1080.62 \ce{\pu{g} CAN}}{820.43 \ce{\pu{g} Ca(NO3)2}}
+=
+609 \ce{\pu{g} CAN}
 $$
+
+But obviously, the azeotrope of nitric acid is around 68% HNO3, 47% more is needed, raising it to **243mL of drain cleaner** and **895g of fertilizer** to get 250 mL. The percent yield will obviously be lower due to decomposition and reaction kineitcs.
