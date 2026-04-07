@@ -45,28 +45,30 @@ $$ \ce{H2SO4 (aq) + Ca(NO3)2 (aq) -> 2HNO3 (aq) + CaSO4 (s)} $$
 
 from the sulfuric acid in the drain cleaner and calcium nitrate in the fertilizer to produce mostly solid $$ \ce{CaSO4} $$ as a byproduct. Where calcuim nitrate is found in the form of calcium-ammonium nitrate with the formula $$ \ce{5 Ca(NO3)2 . NH4NO3 . 10 H2O} $$.
 
-To react half a bottle of drainer cleaner into nitric acid with a source of about 93% sulfuric acid (16 fl. oz. is about 473 mL) with a density of about $$ \ce{1.82 \pu{g/mL}} $$, a total of
+To react about half a bottle of drainer cleaner into nitric acid with a source of about 93% sulfuric acid (10 fl. oz. is about 296 mL) with a density of about $$ \ce{1.82 \pu{g/mL}} $$, a total of
 
 $$
-473 \pu{mL} \textnormal{ cleaner}
+296 \pu{mL} \textnormal{ cleaner}
 \times \frac{0.93 \ce{\pu{mL} H2SO4}}{1 \pu{mL} \textnormal{ cleaner}}
 \times \frac{1.82 \ce{\pu{g} H2SO4}}{1 \ce{\pu{mL} H2SO4}}
 \times \frac{1 \ce{\pu{mol} H2SO4}}{98.08 \ce{\pu{g} H2SO4}}
 \times \frac{2 \ce{\pu{mol} HNO3}}{1 \ce{\pu{mol} H2SO4}}
 \times \frac{63.01 \ce{\pu{g} HNO3}}{1 \ce{\pu{mol} HNO3}}
 =
-1028 \ce{\pu{g} HNO3}
+643 \ce{\pu{g} HNO3}
 $$
 
 is made, but requires the addition of
 
 $$
-16.3 \ce{\pu{mol} HNO3}
+10.2 \ce{\pu{mol} HNO3}
 \times \frac{1 \ce{\pu{mol} NO3-}}{1 \ce{\pu{mol} HNO3}}
 \times \frac{1 \ce{\pu{mol} CAN}}{10 \ce{\pu{mol} NO3-}}
 \times \frac{1080.62 \ce{\pu{g} CAN}}{1 \ce{\pu{mol} CAN}}
 =
-1762 \ce{\pu{g} CAN}
+1102 \ce{\pu{g} CAN}
 $$
 
-That means, I need **473mL of drain cleaner** and **1762g of fertilizer** (~1700g can used since ammonium nitrate is present) to get **1065mL of azeotropic nitric acid** (68% concentration at $$ \ce{1.42 \pu{g/mL}} $$). The percent yield will obviously be lower due to decomposition, reaction kineitcs, and improper distillation. 
+That means, I need **355mL of drain cleaner** and **1102g of fertilizer** (~1280g can used since ammonium nitrate is present) to get **~670mL of azeotropic nitric acid** (68% concentration at $$ \ce{1.42 \pu{g/mL}} $$). The percent yield will obviously be lower due to decomposition, reaction kineitcs, and improper distillation. 
+
+But to the distillation, we need to set up a safe environment, proper heating, and proper collection.
