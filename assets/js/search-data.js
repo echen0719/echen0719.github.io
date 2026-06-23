@@ -37,16 +37,16 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/resume/";
           },
-        },{id: "projects-server-scan-mod",
-          title: 'Server Scan++ Mod',
-          description: "Fabric Minecraft 1.21.11 Mod that scans the internet for Minecraft servers",
-          section: "Projects",handler: () => {
-              window.location.href = "/projects/1_project/";
-            },},{id: "projects-image-classification-with-pretrained-cnn-model",
+        },{id: "projects-image-classification-with-pretrained-cnn-model",
           title: 'Image Classification with Pretrained CNN Model',
           description: "A model built off the MobileNet V3 model on the CIFAR-10/CINIC-10 datasets.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/img-class-cnn/";
+            },},{id: "projects-minecraft-server-finder",
+          title: 'Minecraft Server Finder',
+          description: "Scanner for the whole internet to find online Minecraft servers each week",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/minecraft-server-finder/";
             },},{
         id: 'social-email',
         title: 'email',
