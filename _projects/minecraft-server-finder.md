@@ -15,6 +15,7 @@ Ain't this really cool? Sometimes, you just want to meet new friends all across 
         font-family: "Roboto", sans-serif;
         background: #181818;
         padding: 40px 20px;
+        border-radius: 10px;
         color: #eee;
         max-width: 1000px;
         margin: 0 auto;
@@ -29,11 +30,18 @@ Ain't this really cool? Sometimes, you just want to meet new friends all across 
     }
 
     .mc-finder p {
-        text-align: center;
         font-size: 16px;
         font-weight: 400;
         color: #888;
         margin-bottom: 20px;
+    }
+
+    .scan-footnote {
+        text-align: right;
+        font-size: 12px;
+        font-weight: 400;
+        color: #eee;
+        margin-top: -20px;
     }
 
     .stats {
@@ -72,17 +80,17 @@ Ain't this really cool? Sometimes, you just want to meet new friends all across 
 <body>
     <div class="mc-finder">
         <h1>Minecraft Server Finder</h1>
-        <p>Scan for online servers on port 25565</p>
+        <p style="text-align: center;">Scan for online servers on port 25565</p>
 
         <div class="stats">
             <div class="stats-box">
                 <div class="stat-value" id="serverCount">-</div>
-                <div class="stat-label">Total Servers</div>
+                <div class="stat-label">Total Scanned Servers*</div>
             </div>
 
             <div class="stats-box">
                 <div class="stat-value" id="playerCount">-</div>
-                <div class="stat-label">Total Players</div>
+                <div class="stat-label">Total Online Servers*</div>
             </div>
 
             <div class="stats-box">
@@ -91,7 +99,8 @@ Ain't this really cool? Sometimes, you just want to meet new friends all across 
             </div>
         </div>
 
-        // add search div
-        {% include servers-list.html %} // script for functionality
+        <p class="scan-footnote">*as of last scan time</p>
+
+        {% include servers-list.html %}
     </div>
 </body>

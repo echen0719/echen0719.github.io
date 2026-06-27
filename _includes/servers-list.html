@@ -1,4 +1,36 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<div class="controls" style="margin-bottom: 20px;">
+    <input type="text" id="searchBox" placeholder="Search by IP or version..." style="width: 100%; padding: 12px; background: #2a2a2a;
+    border: 1px solid steelblue; border-radius: 6px; color: #eee; font-size: 14px;">
+</div>
+
+<div id="serverList" style="color: #eee; margin-top: 20px;">Loading...</div>
+
 <script>
+let servers = [];
+
+asyn function extractJSON() {
+    const scansFolder = "/assets/minecraftscans/";
+    document.getElementById('serverList').textContent = "Loading latest scan..."';
+
+    try {
+        const manifest = await fetch('/assets/minecraftscans/scans.json').then(r => r.json());
+
+        const response = await fetch(`/assets/minecraftscans/${manifest.latest}`);
+        const blob = await response.blob();
+
+        const jsonFile = await JSZip.loadAsync(blob).file(manifest.latest);
+        if (!jsonFile) throw new Error('Something bugging or I messed up...');
+
+        const jsonContent = await jsonFile.async('string');
+        servers = JSON.parse(jsonContent);
+    }
+    catch (err) {
+        document.getElementById('serverList').textContent = `Error loading scan: ${err.message}`;
+    }
+}
+
 function getInfo() {
 
 }
