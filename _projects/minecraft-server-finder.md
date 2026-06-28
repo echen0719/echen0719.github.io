@@ -84,17 +84,17 @@ Ain't this really cool? Sometimes, you just want to meet new friends all across 
 
         <div class="stats">
             <div class="stats-box">
-                <div class="stat-value" id="serverCount">-</div>
+                <div class="stat-value" id="server-count">-</div>
                 <div class="stat-label">Total Scanned Servers*</div>
             </div>
 
             <div class="stats-box">
-                <div class="stat-value" id="playerCount">-</div>
+                <div class="stat-value" id="player-count">-</div>
                 <div class="stat-label">Total Online Servers*</div>
             </div>
 
             <div class="stats-box">
-                <div class="stat-value" id="scanTime">-</div>
+                <div class="stat-value" id="scan-time">-</div>
                 <div class="stat-label">Last Scan</div>
             </div>
         </div>
