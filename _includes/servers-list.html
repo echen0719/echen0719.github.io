@@ -29,10 +29,12 @@
     font-size: 14px;
 }
 
+.view-json-button
 .refresh-button {
     background: darkslategray;
 }
 
+.view-json-button:hover
 .refresh-button:hover {
     background: steelblue;
 }
@@ -102,8 +104,53 @@ let currentPage = 1;
 let pageSize = 50;
 let pinging = false;
 
+function loadPreferences() {
+    const savedRandom = localStorage.getItem('pref-mc-server-scanner-random');
+    if (savedRandom !== null) {
+        document.getElementById('random-toggle').checked = savedRandom === 'true';
+    }
+    const savedOffline = localStorage.getItem('pref-mc-server-scanner-offline');
+    if (savedOffline !== null) {
+        document.getElementById('show-offline').checked = savedOffline === 'true';
+    }
+}
+
+// save for future usage
+function savePreferences() {
+    localStorage.setItem('pref-mc-server-scanner-random', document.getElementById('random-toggle').checked);
+    localStorage.setItem('pref-mc-server-scanner-offline', document.getElementById('show-offline').checked);
+}
+
 async function init() {
     document.getElementById('server-list').innerHTML = `<p style="color: #eee;">Loading...</div>`;
+
+    loadPreferences();
+
+    // listeners for if the user changes while pinging
+    document.getElementById('search-box').addEventListener('input', () => {
+        prepareResults();
+        render();
+    });
+
+    document.getElementById('page-size').addEventListener('change', (e) => {
+        pageSize = parseInt(e.target.value);
+        prepareResults();
+        render();
+    });
+
+    document.getElementById('random-toggle').addEventListener('change', () => {
+        prepareResults();
+        render();
+    });
+
+    document.getElementById('show-offline').addEventListener('change', () => {
+        render();
+    });
+
+    document.getElementById('refresh-button').addEventListener('click', () => {
+        serverStatuses = {};
+        pingVisible();
+    });
 
     try {
         const manifest = await fetch('/assets/minecraftscans/scans.json').then(r => r.json());
@@ -119,6 +166,7 @@ async function init() {
 
         servers = JSON.parse(jsonContent);
         prepareResults();
+        render();
     }
     catch (err) {
         document.getElementById('server-list').innerHTML = `<p style="color: red;">Error loading scan: ${err.message}</div>`;
@@ -133,9 +181,10 @@ function setInfo(count, players, date) {
 
 function prepareResults() {
     const randomMode = document.getElementById('random-toggle').checked;
+    const showOffline = document.getElementById('show-offline').checked;
     const searchTerm = document.getElementById('search-box').value.toLowerCase();
 
-    let filtered = allServers.filter(server =>
+    let filtered = servers.filter(server =>
         (server.ip && server.ip.toLowerCase().includes(searchTerm)) ||
         (server.version && server.version.toLowerCase().includes(searchTerm))
     );
@@ -150,19 +199,88 @@ function prepareResults() {
 
 function render() {
     const serverListDiv = document.getElementById('server-list');
+    const showOffline = document.getElementById('show-offline').checked;
 
-    const start = (currentPage - 1) * pageSize;
-    const end = start + pageSize;
-    displayedServers = filteredServers.slice(start, end);
+    displayedServers = [];
+    let checked = 0;
 
-    if (displayedServers.length === 0) {
-        serverListDiv.innerHTML = `<p style="color: red;">No servers found matching query constraints.</p>`;
+    for (let i = 0; i < filteredServers.length; i++) {
+        if (displayedServers.length >= pageSize) break;
+
+        const server = filteredServers[i];
+        const key = `${server.ip}:${server.port}`;
+        const status = serverStatuses[key];
+
+        if (!showOffline && status && !status.online) continue;
+
+        displayedServers.push(server);
+    }
+
+    if (displayedServers.length === 0 && filteredServers.length === 0) {
+        serverListDiv.innerHTML = `<p style="color: red;">No servers found matching search.</p>`;
         return;
     }
 
-    displayedServers.forEach(server => {
+    serverListDiv.innerHTML = '';
 
-    }
+    displayedServers.forEach(server => {
+        const key = `${server.ip}:${server.port}`;
+        const status = serverStatuses[key];
+
+        const card = document.createElement('div');
+        card.className = 'server-card';
+
+        let iconHtml = `<div class="server-icon">No Icon</div>`;
+        let detailsHtml = `<div><strong style="color: #eee;">${key}</strong><br><span style="color: #eee;">Pinging server status...</span></div>`;
+        let buttonHtml = '';
+
+        if (status) {
+            buttonHtml = `<button class="view-json-button" style="margin-left: auto; height: fit-content;" onclick="viewRawJson('${key}')">View Raw JSON</button>`;
+
+            if (status.online) {
+                if (status.icon) {
+                    iconHtml = `<img src="${status.icon}" class="server-icon" alt="icon">`;
+                }
+
+                let motd = 'No MOTD provided';
+                if (status.motd && status.motd.html) {
+                    motd = status.motd.html.join('<br>');
+                }
+                else if (status.motd && status.motd.clean) {
+                    motd = status.motd.clean.join('<br>');
+                }
+
+                if (!status.players.online || !status.players.max || !status.version) return;
+
+                const currentPlayers = status.players.online || 0;
+                const maxPlayers = status.players.max || 0
+                const gameVersion = status.version || "Unknown";
+
+                detailsHtml = `
+                    <div>
+                        <strong style="color: #eee;">${key}</strong> <span style="color: lime;">[Online]</span><br>
+                        <span style="color: #eee;">Version: ${gameVersion}</span><br>
+                        <span style="color: #eee;">Players: ${currentPlayers}/${maxPlayers}</span><br>
+                        <div style="margin-top: 5px; font-family: monospace; background: #1a1a1a; padding: 4px; border-radius: 4px;">${motd}</div>
+                    </div>
+                `;
+            }
+            else {
+                card.style.opacity = '0.5';
+                card.style.border = '1px dashed red';
+                detailsHtml = `<div><strong style="color: #eee;">${key}</strong> <span style="color: red;">Offline</span></div>`;
+            }
+        }
+
+        card.innerHTML = iconHtml + detailsHtml + buttonHtml;
+        serverListDiv.appendChild(card);
+    });
+
+    pingVisible();
+}
+
+function viewRawJson(key) {
+    window.open(`https://api.mcsrvstat.us/3/${key}`, '_blank');
 }
 
 async function ping(ip, port) {
@@ -193,20 +311,18 @@ async function pingVisible() {
     if (pinging) return;
     pinging = true;
 
-    const showOffline = document.getElementById('show-offline').checked;
-
     for (const server of displayedServers) {
         const key = `${server.ip}:${server.port}`;
         if (serverStatuses[key]) continue;
 
         await ping(server.ip, server.port);
+        render();
+
+        await new Promise(resolve => setTimeout(resolve, 500));
     }
 
     isPinging = false;
-
-    // if user decides to toggle during ping
-    if (!showOffline) {
-        renderPage();
-    }
 }
+
+init();
 </script>
