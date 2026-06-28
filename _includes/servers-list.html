@@ -23,7 +23,6 @@
 .refresh-button {
     padding: 12px 16px;
     background: #2a2a2a;
-    border: 1px solid steelblue;
     border-radius: 6px;
     color: #eee;
     font-size: 14px;
@@ -36,7 +35,7 @@
 
 .view-json-button:hover
 .refresh-button:hover {
-    background: steelblue;
+    border: 1px solid steelblue;
 }
 
 .checkbox-label {
@@ -81,7 +80,7 @@
     </select>
 
     <label class="checkbox-label">
-        <input type="checkbox" id="random-toggle">
+        <input type="checkbox" id="random-toggle" checked>
         <span style="color: #eee">Randomizer</span>
     </label>
 
@@ -103,11 +102,13 @@ let serverStatuses = {}; // caching api results
 let currentPage = 1;
 let pageSize = 50;
 let pinging = false;
+let abortController = null;
+const concurrentPings = 10;
 
 function loadPreferences() {
     const savedRandom = localStorage.getItem('pref-mc-server-scanner-random');
     if (savedRandom !== null) {
-        document.getElementById('random-toggle').checked = savedRandom === 'true';
+        document.getElementById('random-toggle').checked = savedRandom === 'false';
     }
     const savedOffline = localStorage.getItem('pref-mc-server-scanner-offline');
     if (savedOffline !== null) {
@@ -127,29 +128,27 @@ async function init() {
     loadPreferences();
 
     // listeners for if the user changes while pinging
-    document.getElementById('search-box').addEventListener('input', () => {
-        prepareResults();
-        render();
-    });
+    document.getElementById('search-box').addEventListener('input', () => {handleFilterChange();});
 
     document.getElementById('page-size').addEventListener('change', (e) => {
         pageSize = parseInt(e.target.value);
-        prepareResults();
-        render();
+        handleFilterChange();
     });
 
     document.getElementById('random-toggle').addEventListener('change', () => {
-        prepareResults();
-        render();
+        savePreferences();
+        handleFilterChange();
     });
 
     document.getElementById('show-offline').addEventListener('change', () => {
-        render();
+        savePreferences();
+        handleFilterChange();
     });
 
     document.getElementById('refresh-button').addEventListener('click', () => {
+        cancelPings();
         serverStatuses = {};
-        pingVisible();
+        render();
     });
 
     try {
@@ -179,9 +178,21 @@ function setInfo(count, players, date) {
     document.getElementById('scan-time').textContent = date;
 }
 
+function handleFilterChange() {
+    cancelPings();
+    prepareResults();
+    render();
+}
+
+function cancelPings() {
+    if (abortController) {
+        abortController.abort();
+    }
+    pinging = false;
+}
+
 function prepareResults() {
     const randomMode = document.getElementById('random-toggle').checked;
-    const showOffline = document.getElementById('show-offline').checked;
     const searchTerm = document.getElementById('search-box').value.toLowerCase();
 
     let filtered = servers.filter(server =>
@@ -202,7 +213,6 @@ function render() {
     const showOffline = document.getElementById('show-offline').checked;
 
     displayedServers = [];
-    let checked = 0;
 
     for (let i = 0; i < filteredServers.length; i++) {
         if (displayedServers.length >= pageSize) break;
@@ -250,11 +260,9 @@ function render() {
                     motd = status.motd.clean.join('<br>');
                 }
 
-                if (!status.players.online || !status.players.max || !status.version) return;
-
-                const currentPlayers = status.players.online || 0;
-                const maxPlayers = status.players.max || 0
-                const gameVersion = status.version || "Unknown";
+                const currentPlayers = status.players?.online || 0;
+                const maxPlayers = status.players?.max || 0;
+                const gameVersion = status.version?.name || "Unknown";
 
                 detailsHtml = `
                     <div>
@@ -276,20 +284,23 @@ function render() {
         serverListDiv.appendChild(card);
     });
 
-    pingVisible();
+    if (!pinging) {
+        pingVisible();
+    }
 }
 
 function viewRawJson(key) {
     window.open(`https://api.mcsrvstat.us/3/${key}`, '_blank');
 }
 
-async function ping(ip, port) {
+async function ping(ip, port, signal) {
     const key = `${ip}:${port}`;
-    const maxRetries = 3;
+    const maxRetries = 2;
 
     for (let i = 0; i < maxRetries; i++) {
+        if (signal && signal.aborted) return;
         try {
-            const response = await fetch(`https://api.mcsrvstat.us/3/${key}`);
+            const response = await fetch(`https://api.mcsrvstat.us/3/${key}`, {signal});
             if (!response.ok) throw new Error('API or request error');
             const data = await response.json();
 
@@ -297,11 +308,12 @@ async function ping(ip, port) {
             return data;
         }
         catch (e) {
+            if (signal && signal.aborted) return;
             if (i === maxRetries - 1) { // failing to ping = offline
                 serverStatuses[key] = {online: false};
             }
             else {
-                await new Promise(retry => setTimeout(retry, 500));
+                await new Promise(resolve => setTimeout(resolve, 500));
             }
         }
     }
@@ -311,17 +323,43 @@ async function pingVisible() {
     if (pinging) return;
     pinging = true;
 
-    for (const server of displayedServers) {
+    abortController = new AbortController();
+    const signal = abortController.signal;
+
+    const queue = displayedServers.filter(server => {
         const key = `${server.ip}:${server.port}`;
-        if (serverStatuses[key]) continue;
+        return !serverStatuses[key];
+    });
 
-        await ping(server.ip, server.port);
-        render();
+    async function worker() {
+        while (queue.length > 0 && !signal.aborted) {
+            const server = queue.shift();
+            if (!server) continue;
 
-        await new Promise(resolve => setTimeout(resolve, 500));
+            await ping(server.ip, server.port, signal);
+
+            if (!signal.aborted) {
+                render();
+            }
+        }
     }
 
-    isPinging = false;
+    const workers = [];
+    const poolSize = Math.min(concurrentPings, queue.length);
+    for (let i = 0; i < poolSize; i++) {
+        workers.push(worker());
+    }
+
+    try {
+        await Promise.all(workers);
+    }
+    catch(e) {
+    }
+    finally {
+        if (!signal.aborted) {
+            pinging = false;
+        }
+    }
 }
 
 init();
