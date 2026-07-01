@@ -168,7 +168,7 @@ function render() {
 
                 const currentPlayers = status.players?.online || 0;
                 const maxPlayers = status.players?.max || 0;
-                const gameVersion = status.version?.name || "Unknown";
+                const gameVersion = status.version || "Unknown";
 
                 detailsHtml = `
                     <div>
