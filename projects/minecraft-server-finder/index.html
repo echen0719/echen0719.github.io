@@ -157,6 +157,9 @@ function render() {
                 if (status.icon) {
                     iconHtml = `<img src="${status.icon}" class="server-icon" alt="icon">`;
                 }
+                else {
+                    iconHtml = `<img src="/assets/img/pack.png" class="server-icon" alt="icon">`;
+                }
 
                 let motd = 'No MOTD provided';
                 if (status.motd && status.motd.html) {
