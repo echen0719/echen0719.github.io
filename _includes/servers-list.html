@@ -94,6 +94,13 @@
 
 <div class="server-list" id="server-list" style="color: #eee">Loading...</div>
 
+<div id="download-progress" style="display:none; margin-bottom:15px;">
+    <progress id="download-bar" value="0" max="100" style="width:100%;"></progress>
+    <div id="download-text" style="color:#eee; font-size:14px; margin-top:4px;">
+        Downloading...
+    </div>
+</div>
+
 <script>
 let servers = [];
 let filteredServers = [];
@@ -155,8 +162,53 @@ async function init() {
         const manifest = await fetch('/assets/minecraftscans/scans.json').then(r => r.json());
         setInfo(manifest.count, null, manifest.date);
 
-        const response = await fetch(`/assets/minecraftscans/${manifest.latest}`);
-        const blob = await response.blob();
+        const cacheName = 'mc-scans-cache';
+        const fileUrl = `/assets/minecraftscans/${manifest.latest}`;
+        let blob;
+
+        const cacheAvailable = 'caches' in window;
+        let cachedResponse = cacheAvailable ? await caches.match(fileUrl) : null; // check if already have
+
+        if (cachedResponse) {
+            console.log("Already have...")
+            blob = await cachedResponse.blob();
+        }
+        else {
+            const progressDiv = document.getElementById("download-progress");
+            const progressBar = document.getElementById("download-bar");
+            const progressText = document.getElementById("download-text");
+
+            progressDiv.style.display = "block";
+
+            const response = await fetch(fileUrl);
+            const total = Number(response.headers.get("Content-Length")) || 0;
+
+            // get content-length from fetch
+            const reader = response.body.getReader();
+            const chunks = [];
+            let received = 0;
+
+            while (true) {
+                const {done, value} = await reader.read();
+                if (done) break; // this works all good
+
+                chunks.push(value);
+                received += value.length;
+
+                const percent = Math.round(received / total * 100);
+                progressBar.value = percent;
+                progressText.textContent = `Downloading... ${percent}%`;
+            }
+
+            blob = new Blob(chunks);
+            progressDiv.style.display = "none";
+
+            if (cacheAvailable) { // save for next time
+                const cache = await caches.open(cacheName);
+                const responseToCache = new Response(blob);
+                await cache.put(fileUrl, responseToCache);
+            }
+        }
 
         // pretty easy to use, I'll say
         const zip = await JSZip.loadAsync(blob);
