@@ -69,13 +69,6 @@ ninja.data = [{
           window.open("https://stackoverflow.com/users/30747094", "_blank");
         },
       },{
-        id: 'social-youtube',
-        title: 'YouTube',
-        section: 'Socials',
-        handler: () => {
-          window.open("https://youtube.com/@echen0719", "_blank");
-        },
-      },{
       id: 'light-theme',
       title: 'Change theme to light',
       description: 'Change the theme of the site to Light',
