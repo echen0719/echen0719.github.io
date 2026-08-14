@@ -1,12 +1,14 @@
 - title: General Information
   type: map
   contents:
-    - name: Full Name
-      value: Eric Chen
-    - name: Date of Birth
-      value: July 19th, 2009
+    - name: Name
+      value: echen0719
+    - name: Location
+      value: New Jersey, US
+    - name: Grade
+      value: High School Senior
     - name: Languages
-      value: Java, Python
+      value: English
 
 - title: Education
   type: time_table
@@ -37,88 +39,76 @@
             - AP World History
             - AP Comp Principles
 
-# - title: Experience
-#  type: time_table
-#  contents:
-#    - title: Professor of Theoretical Physics
-#      institution: Institute for Advanced Study, Princeton University
-#      year: 1933 - 1955
-#      description:
-#        - Description 1.
-#        - Description 2.
-#        - title: Description 3.
-#          contents:
-#            - Sub-description 1.
-#            - Sub-description 2.
-#    - title: Visiting Professor
-#      institution: California Institute of Technology, Pasadena, California, US
-#      year: 1933
-#     description:
-#        - Description 1.
-#        - Description 2.
-
-#    - title: Director
-#      institution: Kaiser Wilhelm Institute for Physics, Berlin, Germany.
-#      year: 1917-1933
-
-#    - title: Professor of Theoretical Physics
-#     institution: Karl-Ferdinand University, Prague, Czechoslovakia
-#      year: 1911 - 1917
-#      description:
-
-#    - title: Associate Professor of Theoretical Physics
-#      institution: University of Zurich, Zurich, Switzerland
-#      year: 1909 - 1911
+- title: Experience
+  type: time_table
+  contents:
+    - title: Chemistry Research Intern
+      institution: Busch Campus -- Rutgers University, NJ
+      year: 2026
+      description:
+        - Worked on creating and binding the ruthenium complex, [Ru(trpy)(bpm)Cl]PF<sub>6</sub> to a nanocage, Zn<sub>2</sub>BiCage.
+        - Performed electrochemistry to study proton-coupled electron transfer using cyclic voltammetry.
+        - Wrote up a poster with the help of my mentor and presented it at the Seton Hall University.
 
 - title: Projects
   type: time_table
   contents:
-    - title: <a href="https://github.com/echen0719/minecraft-modding">minecraft-modding</a>
-      year: March 2025 - now
-      description: Source files for a few Minecraft Mods I have made over the past few months.
     - title: <a href="https://github.com/echen0719/code-suite/tree/main/Machine%20Learning">machine-learning</a>
       year: May 2025 - now
-      description: Introductory learning steps to understand PyTorch and maybe TensorFlow
-    - title: <a href="https://github.com/echen0719/earn-your-time">earn-your-time</a>
-      year: May 2025 - now
-      description: An app I am trying to develop to help users deal with procrasination (wait wait wait, not me...).
+      description: Introductory learning steps to understand PyTorch and create simple multimodal models.
+    - title: <a href="https://github.com/echen0719/block-finder">block-finder</a>
+      year: July 2026 - now
+      description: Minecraft mod to scan and outline specific blocks in game. Published on both CurseForge and Modrinth as "Block Finder".
+#    - title: <a href="https://github.com/echen0719/cyber-notify">cyber-notify</a>
+#      year: May 2026 - now
+#      description: Trying to make a machine learning model to pick up on abnormal traffic and processes to prevent cyberattacks.
 
 - title: Skills
   type: time_table
   contents:
-    - title: Linux Usage
-      description: Fluent with Linux command prompt usage and basic scripting. Have some prerequisite knowledge in system administrator tools and operation.
-    - title: Git Control
-      description: Has a good understanding of git through command line and branching/merging.
-    - title: PyTorch
-      description: Currently have a novice understanding of the Python ML library, but currently working on learning to implement neural networks into models.
-    - title: Spanish Speaking/Writing
-      description: Still learning Spanish in school and currently have a B1 (CEFR) level understanding.
-    - title: Blockchain Technology
-      description: Have some knowledge in applying technologies already developed for cryptocurrency.
+    - title: Linux Terminal and Bash Scripting
+      description: Fluent with terminal usage by daily driving Arch Linux for over three years. Have some prerequisite knowledge in system administrator tools and operation. Intermediate scripting experience using bash.
+    - title: PyTorch and Tensorflow
+      description: Currently have a novice understanding of the Python ML library, but currently working on learning model design and the mathematical side of things.
+    - title: Minecraft Modding
+      description: Made a few Minecraft mods that required concurrency, lambda expressions, and Gradle. Have an intermediate-advanced understand of Java programming.
+    - title: Remote Server Management
+      description: Learned to host my own web APIs on an at-home server along with setting it up with OpenSSH, Samba, and FastAPI
+    - title: Video Game Cheats
+      description: Used static tools and dynamic tools like .so dumpers and Cheat Engine to reverse engineer offsets to be used for game cheats.
+    - title: Programming Languages
+      description: Java, Python, Javascript
 
-- title: Honors and Awards
+- title: Honors and Awards (more to come)
   type: time_table
   contents:
-    - year: 2025
+    - year: 2023-2024
       items:
-        - Currently Unknown
+        - 2<super>nd</super> place for State Science Olympiad events "Reach for the Stars"
+        - School Honor Roll
+    - year: 2024-2025
+      items:
+        - 17<super>th</super> place in New Jersey Science League for Chemistry II
+        - School Honor Roll
+    - year: 2025-2026
+      items:
+        - School Honor Roll
 
-- title: Academic Interests
+- title: Academic/Work Interests
   type: nested_list
   contents:
-    - title: Computer Science
+    - title: Cybersecurity
       items:
-        - Much passion to learn efficent algorithms and software design.
-        - Interested in using computing for fun and real world problems.
-    - title: Mathematics
+        - Passionate for designing safer systems through penetration testing.
+        - Interested in breaking down complex networks and fighting vulnerabilities in a changing age.
+    - title: Machine Learning
       items:
-        - Studying ways abstract and practical mathematics can aid computing.
-        - Want to apply mathematics while working with machine learning.
+        - Studying ways to improve and rate model performance.
+        - Finding ways to improve human lives through machine learning.
     - title: Chemistry
       items:
         - Fascinated with possible real-world applications of chemistry.
-        - Want to do lab work and experimentation.
+        - Want to do more lab work and experimentation.
 
 - title: Other Interests
   type: nested_list
@@ -131,6 +121,6 @@
         - "5K PR: 20:15"
     - title: Track
       items:
-        - "800m PR: 2:34"
-        - "1600m PR: 5:39"
+        - "800m PR: 2:29"
+        - "1600m PR: 5:30"
         - "3200m PR: 12:22(ht)"

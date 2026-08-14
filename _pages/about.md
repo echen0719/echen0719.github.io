@@ -2,14 +2,14 @@
 layout: about
 title: About
 permalink: /
-subtitle: Aspiring Computer Scientist and Machine Learning Engineer
+subtitle: Aspiring System Security and Machine Learning Engineer
 
 profile:
   align: right
   image: prof_pic.jpg
   image_circular: false # crops the image to make it circular
   <!-- more_info: >
-    <p>Eric Chen - I am a scientist!</p> -->
+    <p>I am a scientist!</p> -->
 
 selected_papers: false # includes a list of papers marked as "selected={true}"
 social: false # includes social icons at the bottom of the page
@@ -25,13 +25,15 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-**Welcome and nice to meet you!** My name is Eric and I am currently a junior attending <a href='https://www.ebnet.org'>East Brunswick HS</a>. My interests lie within practical uses of unsupervised and supervised learning, Minecraft modding, and algorithms. I am currently spending my time learning the general knowledges of *machine learning* and *software development*.
+**Welcome and nice to meet you!** My name is Eric and I am currently a senior attending East Brunswick HS. My interests lie within practical uses of machine learning, Minecraft modding, and system security. I am currently spending my time learning the general knowledges of *machine learning* and *cybersecurity*. 
 
-In addition to my coursework, I spend a large portion of my free time learning more in the field of my interests and working on related personal *programming projects*. I look forward to applying my skills in professional settings in the future.
+In addition to my coursework, I spend a large portion of my free time learning more about these fields and working on related *programming projects*. I look forward to applying my skills in professional settings in the future.
 
 Right now I am focused on:
-- Learning ML Frameworks like PyTorch and Scikit-learn
-- Understanding data structures and algorithms in Java/Python
-- Working on sysadmin and scripting skills with Linux
+- Learning ML frameworks such as PyTorch and Scikit-learn
+- Understanding data structures and algorithms in Java and Python
+- Improving my Linux system administration and scripting skills
+- Exploring cybersecurity and penetration testing
+- Developing Minecraft mods
 
 Feel free to explore my projects and reach out through if you are interested in collaborating or discussing anything!

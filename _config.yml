@@ -2,10 +2,10 @@
 # Site settings
 # -----------------------------------------------------------------------------
 
-title: Eric Chen # the website title (if blank, full name will be used instead)
-first_name: Eric
+title: echen0719 # the website title (if blank, full name will be used instead)
+first_name: echen0719
 middle_name:
-last_name: Chen
+last_name:
 email: echen0719@gmail.com
 contact_note: Just send me an <a href="mailto:echen0719@gmail.com">email</a> if you want to get in touch.
 description: > # the ">" symbol means to ignore newlines until "footer_text:"
