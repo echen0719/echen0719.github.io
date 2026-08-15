@@ -14,7 +14,7 @@ const concurrentPings = 10;
 function loadPreferences() {
     const savedRandom = localStorage.getItem('pref-mc-server-scanner-random');
     if (savedRandom !== null) {
-        document.getElementById('random-toggle').checked = savedRandom === 'false';
+        document.getElementById('random-toggle').checked = savedRandom === 'true';
     }
     const savedOffline = localStorage.getItem('pref-mc-server-scanner-offline');
     if (savedOffline !== null) {
@@ -29,7 +29,7 @@ function savePreferences() {
 }
 
 async function init() {
-    document.getElementById('server-list').innerHTML = `<p style="color: #eee;">Loading...</div>`;
+    document.getElementById('server-list').innerHTML = `<p style="color: #eee;">Loading...</p>`;
 
     loadPreferences();
 
@@ -38,7 +38,7 @@ async function init() {
 
     document.getElementById('page-size').addEventListener('change', (e) => {
         pageSize = parseInt(e.target.value);
-        handleFilterChange();
+        render();
     });
 
     document.getElementById('random-toggle').addEventListener('change', () => {
@@ -48,11 +48,12 @@ async function init() {
 
     document.getElementById('show-offline').addEventListener('change', () => {
         savePreferences();
-        handleFilterChange();
+        render();
     });
 
     document.getElementById('have-players-toggle').addEventListener('change', () => {
-        handleFilterChange();
+        savePreferences();
+        render();
     });
 
     document.getElementById('refresh-button').addEventListener('click', () => {
@@ -142,6 +143,7 @@ function handleFilterChange() {
 function cancelPings() {
     if (abortController) {
         abortController.abort();
+        abortController = null;
     }
     pinging = false;
 }
@@ -215,11 +217,19 @@ function render() {
                 }
 
                 let motd = 'No MOTD provided';
-                if (status.motd && status.motd.html) {
-                    motd = status.motd.html.join('<br>');
-                }
-                else if (status.motd && status.motd.clean) {
-                    motd = status.motd.clean.join('<br>');
+                if (status.motd) {
+                    if (Array.isArray(status.motd.html)) {
+                        motd = status.motd.html.join('<br>');
+                    }
+                    else if (typeof status.motd.html === 'string') {
+                        motd = status.motd.html;
+                    }
+                    else if (Array.isArray(status.motd.clean)) {
+                        motd = status.motd.clean.join('<br>');
+                    }
+                    else if (typeof status.motd.clean === 'string') {
+                        motd = status.motd.clean;
+                    }
                 }
 
                 const currentPlayers = status.players?.online || 0;
@@ -313,6 +323,11 @@ async function pingVisible() {
         return !serverStatuses[key];
     });
 
+    if (queue.length === 0) {
+        pinging = false;
+        return;
+    } // prevent recursion
+
     async function worker() {
         while (queue.length > 0 && !signal.aborted) {
             const server = queue.shift();
@@ -338,7 +353,7 @@ async function pingVisible() {
     catch(e) {
     }
     finally {
-        if (!signal.aborted) {
+        if (!signal.aborted && abortController?.signal === signal) {
             pinging = false;
             pingVisible(); // start pinging again after queue finishes
         }
