@@ -89,6 +89,11 @@
         <span style="color: #eee">Show Offline</span>
     </label>
 
+    <label class="checkbox-label">
+        <input type="checkbox" id="have-players-toggle">
+        <span style="color: #eee">Have Players?</span>
+    </label>
+
     <button class="refresh-button" id="refresh-button">Refresh Servers</button>
 </div>
 
@@ -149,6 +154,10 @@ async function init() {
 
     document.getElementById('show-offline').addEventListener('change', () => {
         savePreferences();
+        handleFilterChange();
+    });
+
+    document.getElementById('have-players-toggle').addEventListener('change', () => {
         handleFilterChange();
     });
 
@@ -263,6 +272,7 @@ function prepareResults() {
 function render() {
     const serverListDiv = document.getElementById('server-list');
     const showOffline = document.getElementById('show-offline').checked;
+    const havePlayers = document.getElementById('have-players-toggle').checked;
 
     displayedServers = [];
 
@@ -273,7 +283,10 @@ function render() {
         const key = `${server.ip}:${server.port}`;
         const status = serverStatuses[key];
 
-        if (!showOffline && status && !status.online) continue;
+        if (status) {
+            if (!showOffline && !status.online) continue;
+            if (havePlayers && (!status.online || (status.players?.online || 0) < 1)) continue; // check for players
+        }
 
         displayedServers.push(server);
     }
@@ -348,6 +361,9 @@ function viewRawJson(key) {
     window.open(`https://api.mcsrvstat.us/3/${key}`, '_blank');
 }
 
+const API = "http://127.0.0.1:6767/scan"; // not yet opening API up yet...only local testing right now
+const backupAPI = "https://api.mcsrvstat.us/3";
+
 async function ping(ip, port, signal) {
     const key = `${ip}:${port}`;
     const maxRetries = 2;
@@ -355,7 +371,7 @@ async function ping(ip, port, signal) {
     for (let i = 0; i < maxRetries; i++) {
         if (signal && signal.aborted) return;
         try {
-            const response = await fetch(`https://api.mcsrvstat.us/3/${key}`, {signal});
+            const response = await fetch(`${API}/${key}`, {signal: AbortSignal.any([signal, AbortSignal.timeout(10000)])});
             if (!response.ok) throw new Error('API or request error');
             const data = await response.json();
 
@@ -364,14 +380,31 @@ async function ping(ip, port, signal) {
         }
         catch (e) {
             if (signal && signal.aborted) return;
-            if (i === maxRetries - 1) { // failing to ping = offline
-                serverStatuses[key] = {online: false};
-            }
-            else {
+            if (i < maxRetries - 1) { // failing to ping = offline
                 await new Promise(resolve => setTimeout(resolve, 500));
             }
         }
     }
+
+    for (let i = 0; i < maxRetries; i++) {
+        if (signal && signal.aborted) return;
+        try {
+            const response = await fetch(`${backupAPI}/${key}`, {signal: AbortSignal.any([signal, AbortSignal.timeout(10000)])});
+            if (!response.ok) throw new Error('Backup API or request error');
+            const data = await response.json();
+
+            serverStatuses[key] = data;
+            return data;
+        }
+        catch (e) {
+            if (signal && signal.aborted) return;
+            if (i < maxRetries - 1) { // failing to ping = offline
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+        }
+    }
+
+    serverStatuses[key] = {online: false}; // both servers failed
 }
 
 async function pingVisible() {
@@ -413,6 +446,7 @@ async function pingVisible() {
     finally {
         if (!signal.aborted) {
             pinging = false;
+            pingVisible(); // start pinging again after queue finishes
         }
     }
 }
