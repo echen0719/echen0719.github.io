@@ -1,14 +1,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
 <style>
-.controls {
+.controls,
+.bottom-controls {
     display: flex;
     align-items: center;
     gap: 12px;
     margin-bottom: 20px;
 }
 
-.search-box {
+.search-box,
+.custom-api-box,
+.worker-count-box {
     flex: 1;
     min-width: 250px;
     padding: 12px;
@@ -20,7 +23,9 @@
 }
 
 .page-size,
-.refresh-button {
+.refresh-button,
+.start-button,
+.stop-button {
     padding: 12px 16px;
     background: #2a2a2a;
     border-radius: 6px;
@@ -28,14 +33,28 @@
     font-size: 14px;
 }
 
-.view-json-button
-.refresh-button {
+.refresh-button,
+.start-button,
+.stop-button {
     background: darkslategray;
 }
 
-.view-json-button:hover
-.refresh-button:hover {
-    border: 1px solid steelblue;
+.view-json-button:hover,
+.refresh-button:hover,
+.start-button:hover,
+.stop-button:hover {
+    border: 2px solid steelblue;
+}
+
+button:disabled {
+    background: #1a1a1a;
+    color: #666;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+button:disabled:hover {
+    border: 2px solid transparent;
 }
 
 .checkbox-label {
@@ -80,11 +99,6 @@
     </select>
 
     <label class="checkbox-label">
-        <input type="checkbox" id="random-toggle" checked>
-        <span style="color: #eee">Randomizer</span>
-    </label>
-
-    <label class="checkbox-label">
         <input type="checkbox" id="show-offline">
         <span style="color: #eee">Show Offline</span>
     </label>
@@ -97,7 +111,31 @@
     <button class="refresh-button" id="refresh-button">Refresh Servers</button>
 </div>
 
+<div class="bottom-controls">
+    <label class="checkbox-label">
+        <input type="checkbox" id="random-toggle" checked>
+        <span style="color: #eee">Randomizer</span>
+    </label>
+
+    <label class="checkbox-label">
+        <input type="checkbox" id="custom-api-toggle" checked>
+        <span style="color: #eee">Custom API</span>
+    </label>
+
+    <input type="text" class="custom-api-box"  id="custom-api-box" placeholder="Custom api address (e.g. 127.0.0.1:6767/scan)">
+    <input type="text" class="worker-count-box"  id="worker-count-box" placeholder="Specify number of workers (default: 10)">
+
+    <button class="start-button" id="start-button">Start</button>
+    <button class="stop-button" id="stop-button">Stop</button>
+</div>
+
 <div class="server-list" id="server-list" style="color: #eee">Loading...</div>
+
+<div class="pagination-controls" style="display: flex; align-items: center; justify-content: center;">
+    <button class="refresh-button" id="previous-page">Previous</button>
+    <span id="page-info" style="color: white; min-width: 120px; text-align: center; padding: 0 15px">Page 1 / 1</span>
+    <button class="refresh-button" id="next-page">Next</button>
+</div>
 
 <div id="download-progress" style="display:none; margin-bottom:15px;">
     <progress id="download-bar" value="0" max="100" style="width:100%;"></progress>
@@ -109,13 +147,18 @@
 <script>
 let servers = [];
 let filteredServers = [];
-let displayedServers = []; // what user sees
+let displayedServers = [];
+
 let serverStatuses = {}; // caching api results
+let pendingPings = new Set();
+
 let currentPage = 1;
+let totalPages = 1;
 let pageSize = 50;
 let pinging = false;
 let abortController = null;
-const concurrentPings = 10;
+let concurrentPings = 10; // worker count
+let scanIndex = 0;
 
 function loadPreferences() {
     const savedRandom = localStorage.getItem('pref-mc-server-scanner-random');
@@ -126,30 +169,72 @@ function loadPreferences() {
     if (savedOffline !== null) {
         document.getElementById('show-offline').checked = savedOffline === 'true';
     }
+
+    const savedHavePlayers = localStorage.getItem('pref-mc-server-scanner-have-players');
+    if (savedHavePlayers !== null) {
+        document.getElementById('have-players-toggle').checked = savedHavePlayers === 'true';
+    }
+
+    const savedAPIToggle = localStorage.getItem('pref-mc-server-scanner-custom-api-toggle');
+    if (savedAPIToggle !== null) {
+        const isToggledOn = savedAPIToggle === 'true'; // convert string to boolean
+        document.getElementById('custom-api-toggle').checked = isToggledOn;
+        document.getElementById('custom-api-box').disabled = !isToggledOn;
+    }
+
+    const savedAPI= localStorage.getItem('pref-mc-server-scanner-custom-api');
+    if (savedAPI !== null) {
+        document.getElementById('custom-api-box').value = savedAPI;
+    }
+
+    const savedWorkers = localStorage.getItem('pref-mc-server-scanner-workers');
+    if (savedWorkers !== null) {
+        const value = parseInt(savedWorkers);
+        if (!isNaN(value) && value > 0) {
+            document.getElementById('worker-count-box').value = value;
+            concurrentPings = value;
+        }
+    }
 }
 
 // save for future usage
 function savePreferences() {
     localStorage.setItem('pref-mc-server-scanner-random', document.getElementById('random-toggle').checked);
     localStorage.setItem('pref-mc-server-scanner-offline', document.getElementById('show-offline').checked);
+    localStorage.setItem('pref-mc-server-scanner-have-players', document.getElementById('have-players-toggle').checked);
+
+    localStorage.setItem('pref-mc-server-scanner-custom-api-toggle', document.getElementById('custom-api-toggle').checked);
+    localStorage.setItem('pref-mc-server-scanner-custom-api', document.getElementById('custom-api-box').value);
+
+    localStorage.setItem('pref-mc-server-scanner-workers', document.getElementById('worker-count-box').value);
+}
+
+function updatePingButtons() {
+    const startBtn = document.getElementById('start-button');
+    const stopBtn = document.getElementById('stop-button');
+
+    if (pinging) { // mutually exclusive behavior
+        startBtn.disabled = true;
+        stopBtn.disabled = false;
+    }
+    else {
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+    }
 }
 
 async function init() {
     document.getElementById('server-list').innerHTML = `<p style="color: #eee;">Loading...</p>`;
-
     loadPreferences();
+    updatePingButtons();
 
     // listeners for if the user changes while pinging
     document.getElementById('search-box').addEventListener('input', () => {handleFilterChange();});
 
     document.getElementById('page-size').addEventListener('change', (e) => {
         pageSize = parseInt(e.target.value);
+        currentPage = 1;
         render();
-    });
-
-    document.getElementById('random-toggle').addEventListener('change', () => {
-        savePreferences();
-        handleFilterChange();
     });
 
     document.getElementById('show-offline').addEventListener('change', () => {
@@ -165,12 +250,76 @@ async function init() {
     document.getElementById('refresh-button').addEventListener('click', () => {
         cancelPings();
         serverStatuses = {};
+        scanIndex = 0;
         render();
+    });
+
+    document.getElementById('random-toggle').addEventListener('change', () => {
+        savePreferences();
+        // prepareResults();
+        // render();
+    });
+
+    // scan list is cleared when api is changed
+    document.getElementById('custom-api-toggle').addEventListener('change', () => {
+        const isChecked = document.getElementById('custom-api-toggle').checked;
+        document.getElementById('custom-api-box').disabled = !isChecked;
+
+        savePreferences();
+        cancelPings();
+        serverStatuses = {};
+        scanIndex = 0;
+        render();
+    });
+
+    let debounce;
+    document.getElementById('custom-api-box').addEventListener('input', () => {
+        savePreferences();
+
+        clearTimeout(debounce);
+        debounce = setTimeout(() => {
+            cancelPings();
+            serverStatuses = {};
+            scanIndex = 0;
+            render();
+        }, 500);
+    });
+
+    document.getElementById('worker-count-box').addEventListener('input', (e) => {
+        const value = parseInt(e.target.value);
+        if (!isNaN(value) && value > 0) {
+            concurrentPings = value;
+        }
+        savePreferences();
+    });
+
+    document.getElementById('start-button').addEventListener('click', () => {
+        if (!pinging) {
+            pingVisible();
+        }
+    });
+
+    document.getElementById('stop-button').addEventListener('click', () => {
+        cancelPings();
+    });
+
+    document.getElementById('previous-page').addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            render();
+        }
+    });
+
+    document.getElementById('next-page').addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            render();
+        }
     });
 
     try {
         const manifest = await fetch('/assets/minecraftscans/scans.json').then(r => r.json());
-        setInfo(manifest.count, null, manifest.date);
+        setInfo(manifest.count, manifest.estimate, manifest.date);
 
         const cacheName = 'mc-scans-cache';
         const fileUrl = `/assets/minecraftscans/${manifest.latest}`;
@@ -230,13 +379,13 @@ async function init() {
         render();
     }
     catch (err) {
-        document.getElementById('server-list').innerHTML = `<p style="color: red;">Error loading scan: ${err.message}</div>`;
+        document.getElementById('server-list').innerHTML = `<p style="color: red;">Error loading scan: ${err.message}</p>`;
     }
 }
 
 function setInfo(count, players, date) {
     document.getElementById('server-count').textContent = count;
-    document.getElementById('player-count').textContent = players ? players : "?";
+    document.getElementById('player-count').textContent =  players ? "~" + players : "?";
     document.getElementById('scan-time').textContent = date;
 }
 
@@ -251,7 +400,10 @@ function cancelPings() {
         abortController.abort();
         abortController = null;
     }
+
+    pendingPings.clear()
     pinging = false;
+    updatePingButtons();
 }
 
 function prepareResults() {
@@ -269,6 +421,19 @@ function prepareResults() {
 
     filteredServers = filtered;
     currentPage = 1;
+    scanIndex = 0;
+}
+
+function findNextUnpinged() {
+    while (scanIndex < filteredServers.length) {
+        const server = filteredServers[scanIndex];
+        scanIndex++;
+        const key = `${server.ip}:${server.port}`;
+        if (!serverStatuses[key] && !pendingPings.has(key)) {
+            return server;
+        }
+    }
+    return null;
 }
 
 function render() {
@@ -276,24 +441,29 @@ function render() {
     const showOffline = document.getElementById('show-offline').checked;
     const havePlayers = document.getElementById('have-players-toggle').checked;
 
-    displayedServers = [];
-
+    let visibleServers = [];
     for (let i = 0; i < filteredServers.length; i++) {
-        if (displayedServers.length >= pageSize) break;
-
         const server = filteredServers[i];
         const key = `${server.ip}:${server.port}`;
         const status = serverStatuses[key];
 
         if (status) {
             if (!showOffline && !status.online) continue;
-            if (havePlayers && (!status.online || (status.players?.online || 0) < 1)) continue; // check for players
+            if (havePlayers && (!status.online || (status.players?.online || 0) < 1)) continue;
         }
-
-        displayedServers.push(server);
+        visibleServers.push(server);
     }
 
-    if (displayedServers.length === 0 && filteredServers.length === 0) {
+    totalPages = Math.ceil(visibleServers.length / pageSize) || 1;
+    if (currentPage > totalPages) {
+        currentPage = totalPages;
+    }
+
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    displayedServers = visibleServers.slice(startIndex, endIndex); // what users see
+
+    if (displayedServers.length === 0) {
         serverListDiv.innerHTML = `<p style="color: red;">No servers found matching search.</p>`;
         return;
     }
@@ -362,54 +532,54 @@ function render() {
         serverListDiv.appendChild(card);
     });
 
-    if (!pinging) {
-        pingVisible();
-    }
+    document.getElementById('page-info').textContent = `Page ${currentPage} / ${totalPages}`;
 }
 
-function viewRawJson(key) {
+function viewRawJson(key) { // add api open instead in future
     window.open(`https://api.mcsrvstat.us/3/${key}`, '_blank');
 }
 
-const API = "http://127.0.0.1:6767/scan"; // not yet opening API up yet...only local testing right now
+function getCustomAPI() {
+    const isChecked = document.getElementById('custom-api-toggle').checked;
+    const customAPIValue = document.getElementById('custom-api-box').value.trim();
+
+    if (isChecked && customAPIValue) {
+        let url = customAPIValue;
+
+        // auto add http
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+            url = 'http://' + url;
+        }
+
+        return url;
+    }
+    return null;
+}
+
 const backupAPI = "https://api.mcsrvstat.us/3";
 
 async function ping(ip, port, signal) {
     const key = `${ip}:${port}`;
     const maxRetries = 2;
+    const API = getCustomAPI();
+    const endpoints = API ? [API, backupAPI] : [backupAPI];
 
-    for (let i = 0; i < maxRetries; i++) {
-        if (signal && signal.aborted) return;
-        try {
-            const response = await fetch(`${API}/${key}`, {signal: AbortSignal.any([signal, AbortSignal.timeout(10000)])});
-            if (!response.ok) throw new Error('API or request error');
-            const data = await response.json();
-
-            serverStatuses[key] = data;
-            return data;
-        }
-        catch (e) {
+    for (const endpoint of endpoints) {
+        for (let i = 0; i < maxRetries; i++) {
             if (signal && signal.aborted) return;
-            if (i < maxRetries - 1) { // failing to ping = offline
-                await new Promise(resolve => setTimeout(resolve, 500));
+            try {
+                const response = await fetch(`${endpoint}/${key}`, {signal: AbortSignal.any([signal, AbortSignal.timeout(10000)])});
+                if (!response.ok) throw new Error('API or request error');
+                const data = await response.json();
+
+                serverStatuses[key] = data;
+                return data;
             }
-        }
-    }
-
-    for (let i = 0; i < maxRetries; i++) {
-        if (signal && signal.aborted) return;
-        try {
-            const response = await fetch(`${backupAPI}/${key}`, {signal: AbortSignal.any([signal, AbortSignal.timeout(10000)])});
-            if (!response.ok) throw new Error('Backup API or request error');
-            const data = await response.json();
-
-            serverStatuses[key] = data;
-            return data;
-        }
-        catch (e) {
-            if (signal && signal.aborted) return;
-            if (i < maxRetries - 1) { // failing to ping = offline
-                await new Promise(resolve => setTimeout(resolve, 500));
+            catch (e) {
+                if (signal && signal.aborted) return;
+                if (i < maxRetries - 1) {
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                }
             }
         }
     }
@@ -421,34 +591,46 @@ async function pingVisible() {
     if (pinging) return;
     pinging = true;
 
+    updatePingButtons();
+
     abortController = new AbortController();
     const signal = abortController.signal;
 
-    const queue = displayedServers.filter(server => {
-        const key = `${server.ip}:${server.port}`;
-        return !serverStatuses[key];
-    });
-
-    if (queue.length === 0) {
-        pinging = false;
-        return;
-    } // prevent recursion
-
+    let renderTimeout;
     async function worker() {
-        while (queue.length > 0 && !signal.aborted) {
-            const server = queue.shift();
-            if (!server) continue;
+        while (!signal.aborted) {
+            let nextServer = null;
+            let nextKey = null;
 
-            await ping(server.ip, server.port, signal);
+            while (scanIndex < filteredServers.length) {
+                const server = filteredServers[scanIndex];
+                const key = `${server.ip}:${server.port}`;
+                scanIndex++;
+
+                if (!serverStatuses[key] && !pendingPings.has(key)) {
+                    nextServer = server;
+                    nextKey = key;
+                    break;
+                }
+            }
+
+            if (!nextServer) {
+                break;
+            }
+
+            pendingPings.add(nextKey);
+            await ping(nextServer.ip, nextServer.port, signal);
+            pendingPings.delete(nextKey); // which has much safer handling
 
             if (!signal.aborted) {
-                render();
+                clearTimeout(renderTimeout);
+                renderTimeout = setTimeout(render, 150); // prevent massive updates
             }
         }
     }
 
     const workers = [];
-    const poolSize = Math.min(concurrentPings, queue.length);
+    const poolSize = Math.min(concurrentPings, filteredServers.length);
     for (let i = 0; i < poolSize; i++) {
         workers.push(worker());
     }
@@ -457,12 +639,13 @@ async function pingVisible() {
         await Promise.all(workers);
     }
     catch(e) {
+        console.error("Ping workers error:", e);
     }
     finally {
-        if (!signal.aborted && abortController?.signal === signal) {
-            pinging = false;
-            pingVisible(); // start pinging again after queue finishes
-        }
+        pinging = false;
+        updatePingButtons();
+        clearTimeout(renderTimeout);
+        render();
     }
 }
 

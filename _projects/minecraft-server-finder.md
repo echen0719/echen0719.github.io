@@ -10,6 +10,29 @@ related_publications: true
 
 Ain't this really cool? Sometimes, you just want to meet new friends all across the world through Minecraft. Well, I gotchu since I scanned the whole internet for servers that you can join. Don't trust me? Give my implmentation a try and see who you meet (or who you grief).
 
+### **Important Information, Read Below:**
+
+This is the front end of a Minecraft server pinger. It requires a backend to function. Specifically, an *API* that returns JSON in the format of:
+
+```json
+{
+    "online": "true/false",
+    "motd": {
+        "html": "HTML format of MOTD",
+        "clean": "Plain format of MOTD"
+    },
+    "version": "Version info",
+    "protocol": "Version protocol",
+    "players": {
+        "online": "Players currently online",
+        "max": "Maximum player count"
+    },
+    "icon": "Server Favicon",
+}
+```
+
+To save you some time, I made my own [custom api here](https://github.com/echen0719/minecraft-server-api) that has instructions on how to setup and run as a local endpoint. While this isn't 100% required, it is heavily recommended since the backup API is [mcsrvstat](https://api.mcsrvstat.us/), which I do not want to flood their servers with thousands of requests. Use this 3rd party API service only when necessary, use a local API when possible. The default local api endpoint is set at ```127.0.0.1:6767``` but can be changed.
+
 <style>
     .mc-finder {
         font-family: "Roboto", sans-serif;
@@ -90,7 +113,7 @@ Ain't this really cool? Sometimes, you just want to meet new friends all across 
 
             <div class="stats-box">
                 <div class="stat-value" id="player-count">-</div>
-                <div class="stat-label">Total Online Servers*</div>
+                <div class="stat-label">Estimated Online Servers*</div>
             </div>
 
             <div class="stats-box">
@@ -104,3 +127,6 @@ Ain't this really cool? Sometimes, you just want to meet new friends all across 
         {% include servers-list.html %}
     </div>
 </body>
+
+<p></p>
+### **How does this work?**
