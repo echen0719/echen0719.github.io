@@ -445,7 +445,7 @@ function render() {
         let buttonHtml = "";
 
         if (status) {
-            buttonHtml = `<button class="view-json-button" style="margin-left: auto; height: fit-content;" onclick="viewRawJson('${key}')">View Raw JSON</button>`;
+            buttonHtml = `<button class="view-json-button" style="margin-left: auto; height: fit-content; border-radius: 4px;" onclick="viewRawJson('${key}')">View Raw JSON</button>`;
 
             if (status.online) {
                 if (status.icon) {
@@ -480,7 +480,7 @@ function render() {
                         <strong style="color: #eee;">${key}</strong> <span style="color: lime;">[Online]</span><br>
                         <span style="color: #eee;">Version: ${gameVersion}</span><br>
                         <span style="color: #eee;">Players: ${currentPlayers}/${maxPlayers}</span><br>
-                        <div style="margin-top: 5px; font-family: monospace; background: black; padding: 4px; border-radius: 4px;">${motd}</div>
+                        <div style="margin-top: 5px; font-family: monospace; background: #888888; padding: 4px; border-radius: 4px;">${motd}</div>
                     </div>
                 `;
             }
