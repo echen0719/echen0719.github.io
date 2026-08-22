@@ -1,9 +1,16 @@
+<div id="download-progress" style="display:none; margin-bottom:15px;">
+    <progress id="download-bar" value="0" max="100" style="width:100%;"></progress>
+    <div id="download-text" style="color:#eee; font-size:14px; margin-top:4px;">
+        Downloading...
+    </div>
+</div>
+
 <script>
 // indexedDB for storing larger files
 const conf = {
     repo: "kgurchiek/Minecraft-Server-Scanner",
     path: "ips",
-    ref: "main",
+    branch: "main",
     dbName: "minecraft-servers-list-data",
     storeName: "ipsData"
 };
@@ -48,13 +55,13 @@ async function getCache() { // promises prevent hold ups (async)
     });
 }
 
-async function saveCache(commitDate, arrayBuffer) {
+async function saveCache(commitDate, sha, arrayBuffer) {
     const db = await openDB();
 
     return new Promise((resolve, reject) => {
         const transaction = db.transaction([conf.storeName], "readwrite");
         const store = transaction.objectStore(conf.storeName);
-        const request = store.put({id: "latest", commitDate, data: arrayBuffer}); // data necessary for id
+        const request = store.put({id: "latest", commitDate, sha, data: arrayBuffer}); // data necessary for id
 
         request.onsuccess = () => {
             resolve();
@@ -88,7 +95,62 @@ function parseIPs(arrayBuffer) {
     return servers;
 }
 
-async function getMinecraftServers() {
+async function getMinecraftServers() { // ported from my python file
+    try {
+        const contentFetch = await fetch(`https://api.github.com/repos/${conf.repo}/contents/${conf.path}?ref=${conf.branch}`);
+        if (!contentFetch.ok) throw new Error(`Failed to fetch content metadata: ${contentFetch.status}`);
 
+        const contentData = await contentFetch.json();
+        const remoteSHA = contentData.sha
+        const downloadURL = contentData.download_url
+
+        const cached = await getCache();
+        if (cached && cached.sha === remoteSHA) {
+            console.log(`Cache is up to date. Using the cached data from: ${cached.commitDate}`);
+            return parseIPs(cached.data);
+        }
+
+        let commitDate = null;
+        const commitsFetch = await fetch(`https://api.github.com/repos/${conf.repo}/commits?path=${conf.path}&sha=${conf.branch}&per_page=1`);
+        if (!commitsFetch.ok) throw new Error(`Failed to fetch commit metadata: ${commitsFetch.status}`);
+
+        const commitsData = await commitsFetch.json();
+        for (const commit of commitsData) {
+            const commitDetails = await fetch(`https://api.github.com/repos/${conf.repo}/commits/${commit.sha}`);
+            if (!commitDetails.ok) continue;
+
+            const commitData = await commitDetails.json();
+            const fileRecord = commitData.files?.find(file => file.filename === conf.path && file.sha === remoteSHA);
+
+            if (fileRecord) {
+                commitDate = commitData.commit.committer.date;
+                break;
+            }
+        }
+
+        if (!commitDate) {
+            commitDate = new Date().toISOString();
+        }
+
+        console.log("Fetching remote file now...");
+        const downloadFetch = await fetch(downloadURL);
+        if (!downloadFetch.ok) throw new Error(`Failed to download file: ${downloadFetch.status}`);
+
+        const arrayBuffer = await downloadFetch.arrayBuffer();
+        await saveCache(commitDate, remoteSHA, arrayBuffer);
+
+        return parseIPs(arrayBuffer);
+    }
+    catch (error) {
+        console.log("Can't find Minecraft server list file...Change your browser network settings?");
+
+        // fallback
+        const cached = await getCache();
+        if (cached) {
+            return parseIPs(cached.data);
+        }
+
+        throw new Error("Yeah...good luck...Sorry....");
+    }
 }
 </script>

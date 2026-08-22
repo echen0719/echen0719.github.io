@@ -152,6 +152,7 @@ Note: You might need to enable your browser to access local device endpoints so 
 
         <p class="scan-footnote">*as of last scan time</p>
 
+        {% include servers-list-fetch.html %}
         {% include servers-list.html %}
     </div>
 </body>

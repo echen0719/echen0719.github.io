@@ -137,13 +137,6 @@ button:disabled:hover {
     <button class="refresh-button" id="next-page">Next</button>
 </div>
 
-<div id="download-progress" style="display:none; margin-bottom:15px;">
-    <progress id="download-bar" value="0" max="100" style="width:100%;"></progress>
-    <div id="download-text" style="color:#eee; font-size:14px; margin-top:4px;">
-        Downloading...
-    </div>
-</div>
-
 <script>
 let servers = [];
 let filteredServers = [];
@@ -318,69 +311,14 @@ async function init() {
     });
 
     try {
-        const manifest = await fetch('/assets/minecraftscans/scans.json').then(r => r.json());
-        setInfo(manifest.count, manifest.estimate, manifest.date);
-
-        const cacheName = 'mc-scans-cache';
-        const fileUrl = `/assets/minecraftscans/${manifest.latest}`;
-        let blob;
-
-        const cacheAvailable = 'caches' in window;
-        let cachedResponse = cacheAvailable ? await caches.match(fileUrl) : null; // check if already have
-
-        if (cachedResponse) {
-            console.log("Already have...")
-            blob = await cachedResponse.blob();
-        }
-        else {
-            const progressDiv = document.getElementById("download-progress");
-            const progressBar = document.getElementById("download-bar");
-            const progressText = document.getElementById("download-text");
-
-            progressDiv.style.display = "block";
-
-            const response = await fetch(fileUrl);
-            const total = Number(response.headers.get("Content-Length")) || 0;
-
-            // get content-length from fetch
-            const reader = response.body.getReader();
-            const chunks = [];
-            let received = 0;
-
-            while (true) {
-                const {done, value} = await reader.read();
-                if (done) break; // this works all good
-
-                chunks.push(value);
-                received += value.length;
-
-                const percent = Math.round(received / total * 100);
-                progressBar.value = percent;
-                progressText.textContent = `Downloading... ${percent}%`;
-            }
-
-            blob = new Blob(chunks);
-            progressDiv.style.display = "none";
-
-            if (cacheAvailable) { // save for next time
-                const cache = await caches.open(cacheName);
-                const responseToCache = new Response(blob);
-                await cache.put(fileUrl, responseToCache);
-            }
-        }
-
-        // pretty easy to use, I'll say
-        const zip = await JSZip.loadAsync(blob);
-        const fileName = Object.keys(zip.files)[0];
-        const jsonContent = await zip.file(fileName).async('string');
-
-        servers = JSON.parse(jsonContent);
-        prepareResults();
-        render();
+        servers = await getMinecraftServers();
     }
     catch (err) {
         document.getElementById('server-list').innerHTML = `<p style="color: red;">Error loading scan: ${err.message}</p>`;
     }
+    console.log(`Total servers: ${servers.length}`);
+    prepareResults();
+    render();
 }
 
 function setInfo(count, players, date) {
@@ -479,7 +417,7 @@ function render() {
 
         let iconHtml = `<div class="server-icon">No Icon</div>`;
         let detailsHtml = `<div><strong style="color: #eee;">${key}</strong><br><span style="color: #eee;">Pinging server status...</span></div>`;
-        let buttonHtml = '';
+        let buttonHtml = "";
 
         if (status) {
             buttonHtml = `<button class="view-json-button" style="margin-left: auto; height: fit-content;" onclick="viewRawJson('${key}')">View Raw JSON</button>`;
@@ -517,7 +455,7 @@ function render() {
                         <strong style="color: #eee;">${key}</strong> <span style="color: lime;">[Online]</span><br>
                         <span style="color: #eee;">Version: ${gameVersion}</span><br>
                         <span style="color: #eee;">Players: ${currentPlayers}/${maxPlayers}</span><br>
-                        <div style="margin-top: 5px; font-family: monospace; background: #1a1a1a; padding: 4px; border-radius: 4px;">${motd}</div>
+                        <div style="margin-top: 5px; font-family: monospace; background: #909090; padding: 4px; border-radius: 4px;">${motd}</div>
                     </div>
                 `;
             }
