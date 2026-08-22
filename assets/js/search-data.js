@@ -44,7 +44,7 @@ ninja.data = [{
               window.location.href = "/projects/img-class-cnn/";
             },},{id: "projects-minecraft-server-finder-v2",
           title: 'Minecraft Server Finder v2',
-          description: "Scanner for the whole internet to find online Minecraft servers each week",
+          description: "Scanner for the internet for Minecraft Servers (scanner tool below)",
           section: "Projects",handler: () => {
               window.location.href = "/projects/minecraft-server-finder/";
             },},{
