@@ -42,8 +42,8 @@ ninja.data = [{
           description: "A model built off the MobileNet V3 model on the CIFAR-10/CINIC-10 datasets.",
           section: "Projects",handler: () => {
               window.location.href = "/projects/img-class-cnn/";
-            },},{id: "projects-minecraft-server-finder",
-          title: 'Minecraft Server Finder',
+            },},{id: "projects-minecraft-server-finder-v2",
+          title: 'Minecraft Server Finder v2',
           description: "Scanner for the whole internet to find online Minecraft servers each week",
           section: "Projects",handler: () => {
               window.location.href = "/projects/minecraft-server-finder/";
