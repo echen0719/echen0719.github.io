@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Minecraft Server Finder v2
-description: Scanner for the whole internet to find online Minecraft servers each week
+description: Scanner for the internet for Minecraft Servers (scanner tool below)
 img: assets/img/serverfinder.png
 importance: 2
 category: work
@@ -277,6 +277,6 @@ And that's basically the whole project. There are three main pieces working toge
 - Minecraft Server API: Takes in an IP and retrieves Minecraft Server statuses
 - Frontend: Downloads scan data, sends API requests, and format the data into UI.
 
-Yes. I am looking forward to making this tool better. I would love if you could leave feedback as Github issues here: [https://github.com/echen0719/echen0719.github.io/issues](https://github.com/echen0719/echen0719.github.io/issues). Any type of feedback will be appreciated.
+Yes. I am looking forward to making this tool better. I would love if you could leave feedback as Github issues here: [https://github.com/echen0719/echen0719.github.io/issues](https://github.com/echen0719/echen0719.github.io/issues). Any type of feedback will be appreciated. I am thinking of hosting the API myself with more lenient limits, but I don't know yet.
 
 Also, I am not liable for any damage or griefing that occurs on Minecraft servers with this tool. Everything you do afterwards with your results is up to you.
