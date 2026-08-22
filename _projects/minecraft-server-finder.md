@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Minecraft Server Finder
+title: Minecraft Server Finder v2
 description: Scanner for the whole internet to find online Minecraft servers each week
 img: assets/img/serverfinder.png
 importance: 2
@@ -162,24 +162,51 @@ Note: You might need to enable your browser to access local device endpoints so 
 
 From the surface, this seems to be an extremely complicated project. In many ways, it is. But it can definitely be summarized simply. So below, I will provide some form of a workflow on how this server scanner functions.
 
-1. Gather valid IP addresses that respond to port 25565: Using [masscan](https://github.com/robertdavidgraham/masscan), the entire IPv4 address space was scanned on port 25565 and results were saved as a JSON file.
-2. This JSON output, with around ~2.1 million addresses is formatted uniformly and cleaned with [Python scripts](https://github.com/echen0719/minecraft-server-api) and then compressed into a ZIP file, uploaded to this static website.
+1. Normally I would have to use a port scanning tool like [masscan](https://github.com/robertdavidgraham/masscan) to scan entire IPv4 address space on different ports to find valid Minecraft servers. However, I don't have good networking avaliable so I used the IPs found by [kgurchiek's tool](https://github.com/kgurchiek/Minecraft-Server-Scanner).
+2. But in order to reliably fetch the latest file off of Github, I would need to use Github's API to find the hash of the latest uploaded **[ips](https://github.com/kgurchiek/Minecraft-Server-Scanner/blob/main/ips)** file and download it. Which is exactly what I did:
 
-    Sample of the output looks like:
+    Sample of the fetching code looks like:
 
-    ```json
-    [{"ip": "135.x.34.227", "port": 25565, "timestamp": "1782503645"},
-    {"ip": "43.169.x.121", "port": 25565, "timestamp": "1782503645"},
-    {"ip": "8.x.201.78", "port": 25565, "timestamp": "1782503645"}]
+    ```js
+    const contentFetch = await fetch(`https://api.github.com/repos/${conf.repo}/contents/${conf.path}?ref=${conf.branch}`);
+    // ...
+
+    const contentData = await contentFetch.json();
+    const remoteSHA = contentData.sha
+    const downloadURL = contentData.download_url
+    // ...
+
+    let commitDate = null;
+    const commitsFetch = await fetch(`https://api.github.com/repos/${conf.repo}/commits?path=${conf.path}&sha=${conf.branch}&per_page=1`);
+    // ...
+
+    const commitsData = await commitsFetch.json();
+    for (const commit of commitsData) {
+        const commitDetails = await fetch(`https://api.github.com/repos/${conf.repo}/commits/${commit.sha}`);
+        if (!commitDetails.ok) continue;
+
+        const commitData = await commitDetails.json();
+        const fileRecord = commitData.files?.find(file => file.filename === conf.path && file.sha === remoteSHA);
+
+        if (fileRecord) {
+            commitDate = commitData.commit.committer.date;
+            break;
+        }
+    }
+    // ...
+
+    const downloadFetch = await fetch(downloadURL);
+    // ...
     ```
+    The website will then cache the file to the browser's indexedDB so it doesn't always have to download (unless file changes). I also made a Python equivalent using requests which can be found [here](https://github.com/echen0719/minecraft-server-api/blob/main/createIPJson.py).
 
-3. Now, the fun part on the front end begins.
+3. The **ips** file is in a format where every 6 bytes represents a host. Each 6 bytes can be broken down into two sections: one 4 bytes and another 2 bytes. The first 4 bytes (each 8-bit) stores the IP address. The final 2 bytes (16-bit) store the port in big-endian format. So
 
-    The website loads a manifest file located [here](https://echen0719.github.io/assets/minecraftscans/scans.json) which has information on how many addresses were found by masscan, the estimated number of valid Minecraft servers, the date of the scan, and most importantly, which ZIP file to download.
+    11000000 10101000 00000001 00000001 : 00011010 01101111 = 192 168 1 1 : 0x1A6F = 192.168.1.1:6767
 
-    Obviously, with something being ~23 MB in size, it would be logical to store the giant file in the browser's cache storage. Once downloaded, this file can be reused without redownloading. Once the ZIP file is downloaded, [JSZip](http://jszip.org/) extracts the archive and then is parsed into JSON.
+    This is a really great method for storing these IPs in a compact manner.
 
-4. Once the scan JSON data is loaded, it is filtered through the selection of user filters which are listed in the instructions. After a list of filtered servers is made, the browser starts pinging the servers in that list. This is also where the custom API comes in.
+4. Once the bytes are all read, it populates an array with elements of {ip, port}. This array is then filtered through the selection of user filters which are listed in the instructions. After a list of filtered servers is made, the browser starts pinging the servers in that list. This is also where the custom API comes in.
 
     Browsers can't directly create raw TCP requests to ping Minecraft servers and receive their response (at least not static websites like this one). Instead, the browser sends a HTTP request to the API which handles the Minecraft server status and reply back to the browser.
 
@@ -240,7 +267,7 @@ From the surface, this seems to be an extremely complicated project. In many way
     }
     ```
 
-6. Finally, the browser remembers the user's preferred settings. Things like the checkboxes and input boxes values are stored to browser's ```localStorage``` which the website will restore these values next time.
+6. Finally, the browser remembers the user's preferred settings. Things like the checkboxes and input boxes values are stored to browser's ```localStorage``` which the website will restore these values next time. The **ips** file is also saved for future use in ```indexedDB```.
 
 ### Conclusion
 
