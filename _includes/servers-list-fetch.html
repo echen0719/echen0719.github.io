@@ -107,7 +107,10 @@ async function getMinecraftServers() { // ported from my python file
         const cached = await getCache();
         if (cached && cached.sha === remoteSHA) {
             console.log(`Cache is up to date. Using the cached data from: ${cached.commitDate}`);
-            return parseIPs(cached.data);
+            return {
+                servers: parseIPs(cached.data),
+                commitDate: cached.commitDate
+            };
         }
 
         let commitDate = null;
@@ -139,7 +142,10 @@ async function getMinecraftServers() { // ported from my python file
         const arrayBuffer = await downloadFetch.arrayBuffer();
         await saveCache(commitDate, remoteSHA, arrayBuffer);
 
-        return parseIPs(arrayBuffer);
+        return {
+            servers: parseIPs(arrayBuffer),
+            commitDate: commitDate
+        };
     }
     catch (error) {
         console.log("Can't find Minecraft server list file...Change your browser network settings?");
@@ -147,7 +153,10 @@ async function getMinecraftServers() { // ported from my python file
         // fallback
         const cached = await getCache();
         if (cached) {
-            return parseIPs(cached.data);
+            return {
+                servers: parseIPs(cached.data),
+                commitDate: cached.commitDate
+            };
         }
 
         throw new Error("Yeah...good luck...Sorry....");

@@ -31,7 +31,7 @@ This is the front end of a Minecraft server pinger. It requires a backend *API* 
 }
 ```
 
-To save you some time, I made my own [custom API here](https://github.com/echen0719/minecraft-server-api) that has instructions on how to setup and run as a local endpoint. While this isn't 100% required, it is heavily recommended since the backup API is [mcsrvstat](https://api.mcsrvstat.us/), which I do not want to flood their servers with thousands of requests. Use this 3rd party API service only when necessary, use a local API when possible. The default local API endpoint is set at ```127.0.0.1:6767``` but can be changed to other addresses and ports.
+To save you some time, I made my own **[custom API here](https://github.com/echen0719/minecraft-server-api)** that has instructions in the README file on how to setup and run as a local endpoint. While this isn't 100% required, it is heavily recommended since the backup API is [mcsrvstat](https://api.mcsrvstat.us/), which I do not want to flood their servers with thousands of requests. Use this 3rd party API service only when necessary, use a local API when possible. The default local API endpoint is set at ```127.0.0.1:6767``` but can be changed to other addresses and ports.
 
 Note: You might need to enable your browser to access local device endpoints so you can connect to your hosted API.
 
@@ -97,7 +97,7 @@ Note: You might need to enable your browser to access local device endpoints so 
 
     .stats {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
         justify-items: center;
         align-items: center;
@@ -131,21 +131,16 @@ Note: You might need to enable your browser to access local device endpoints so 
 <body>
     <div class="mc-finder">
         <h1>Minecraft Server Finder</h1>
-        <p style="text-align: center;">Scan for online servers on port 25565</p>
+        <p style="text-align: center;">Scan for online servers with options</p>
 
         <div class="stats">
             <div class="stats-box">
                 <div class="stat-value" id="server-count">-</div>
-                <div class="stat-label">Total Scanned Servers*</div>
+                <div class="stat-label">Total Minecraft Servers*</div>
             </div>
 
             <div class="stats-box">
-                <div class="stat-value" id="player-count">-</div>
-                <div class="stat-label">Estimated Online Servers*</div>
-            </div>
-
-            <div class="stats-box">
-                <div class="stat-value" id="scan-time">-</div>
+                <div><a href="https://github.com/kgurchiek/Minecraft-Server-Scanner" class="stat-value" id="scan-time" style="text-decoration: none;">-</a></div>
                 <div class="stat-label">Last Scan</div>
             </div>
         </div>
@@ -198,7 +193,7 @@ From the surface, this seems to be an extremely complicated project. In many way
     const downloadFetch = await fetch(downloadURL);
     // ...
     ```
-    The website will then cache the file to the browser's indexedDB so it doesn't always have to download (unless file changes). I also made a Python equivalent using requests which can be found [here](https://github.com/echen0719/minecraft-server-api/blob/main/createIPJson.py).
+    The website will then cache the file to the browser's indexedDB so it doesn't always have to download (unless file changes). I also made a Python equivalent using requests which can be found [here](https://github.com/echen0719/minecraft-server-api/blob/main/test/createIPJson.py).
 
 3. The **ips** file is in a format where every 6 bytes represents a host. Each 6 bytes can be broken down into two sections: one 4 bytes and another 2 bytes. The first 4 bytes (each 8-bit) stores the IP address. The final 2 bytes (16-bit) store the port in big-endian format. So
 
