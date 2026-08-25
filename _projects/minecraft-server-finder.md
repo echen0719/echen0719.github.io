@@ -80,19 +80,11 @@ Note: You might need to enable your browser to access local device endpoints so 
         margin-bottom: 10px;
     }
 
-    .mc-finder p {
+    .scan-notes {
         font-size: 16px;
         font-weight: 400;
         color: #888;
         margin-bottom: 20px;
-    }
-
-    .scan-footnote {
-        text-align: right;
-        font-size: 12px;
-        font-weight: 400;
-        color: #eee;
-        margin-top: -20px;
     }
 
     .stats {
@@ -131,7 +123,7 @@ Note: You might need to enable your browser to access local device endpoints so 
 <body>
     <div class="mc-finder">
         <h1>Minecraft Server Finder</h1>
-        <p style="text-align: center;">Scan for online servers with options</p>
+        <p class="scan-notes" style="text-align: center;">Scan for online servers with options</p>
 
         <div class="stats">
             <div class="stats-box">
@@ -145,7 +137,7 @@ Note: You might need to enable your browser to access local device endpoints so 
             </div>
         </div>
 
-        <p class="scan-footnote">*as of last scan time</p>
+        <p class="scan-notes" style="margin-top: -20px; text-align: right;">*as of last scan time</p>
 
         {% include servers-list-fetch.html %}
         {% include servers-list.html %}
