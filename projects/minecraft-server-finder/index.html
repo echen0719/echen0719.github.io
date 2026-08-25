@@ -14,7 +14,7 @@
     </span><span class="p">},</span><span class="w">
     </span><span class="nl">"icon"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Server Favicon"</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div></div> <p>To save you some time, I made my own <strong><a href="https://github.com/echen0719/minecraft-server-api" rel="external nofollow noopener" target="_blank">custom API here</a></strong> that has instructions in the README file on how to setup and run as a local endpoint. While this isn’t 100% required, it is heavily recommended since the backup API is <a href="https://api.mcsrvstat.us/" rel="external nofollow noopener" target="_blank">mcsrvstat</a>, which I do not want to flood their servers with thousands of requests. Use this 3rd party API service only when necessary, use a local API when possible. The default local API endpoint is set at <code class="language-plaintext highlighter-rouge">127.0.0.1:6767</code> but can be changed to other addresses and ports.</p> <p>Note: You might need to enable your browser to access local device endpoints so you can connect to your hosted API.</p> <h3 id="instructions">Instructions</h3> <ul> <li>Check “Custom API” to be true and enter your API endpoint into the input box with the placeholder “Custom api address…”</li> <li>Enter the number of workers (threads) into the second input box with the placeholder “Specify number of workers…”</li> <li>Check any other options you want to enable such as “Show Offline”, “Have Players?”, or “Randomizer”</li> <li>Click the start button to start scanning. Preferrably open up your browser’s network debug tool with Ctrl+Shift+I –&gt; Network.</li> <li>Click the stop button to stop the scan at any time. Results will be shown below this menu.</li> </ul> <table style="width: 100%; border-collapse: collapse; text-align: center;"> <thead> <tr style="background-color: #f2f2f2;"> <th style="border: 1px solid #ddd; padding: 8px;">Show Offline</th> <th style="border: 1px solid #ddd; padding: 8px;">Have Players?</th> <th style="border: 1px solid #ddd; padding: 8px;">Randomizer</th> </tr> </thead> <tbody> <tr> <td style="border: 1px solid #ddd; padding: 8px;">Servers that do not respond are shown. They could still be valid Minecraft servers but likely not.</td> <td style="border: 1px solid #ddd; padding: 8px;">Filters servers that have at least one player. </td> <td style="border: 1px solid #ddd; padding: 8px;">Scans can be done sequentially or in random order. Random order is better.</td> </tr> </tbody> </table> <p></p> <style>.mc-finder{font-family:"Roboto",sans-serif;background:#181818;padding:40px 20px;border-radius:10px;color:#eee;max-width:1000px;margin:0 auto}.mc-finder h1{text-align:center;font-size:32px;font-weight:600;color:limegreen;margin-bottom:10px}.mc-finder p{font-size:16px;font-weight:400;color:#888;margin-bottom:20px}.scan-footnote{text-align:right;font-size:12px;font-weight:400;color:#eee;margin-top:-20px}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;justify-items:center;align-items:center;margin-bottom:40px}.stats-box{background:darkslategray;padding:20px;border-radius:10px;text-align:center;border:1px solid steelblue;width:100%;min-width:200px}.stat-value{font-size:24px;font-weight:bold;color:limegreen;margin-bottom:8px}.stat-label{font-size:12px;font-weight:400;color:lightgray;letter-spacing:1px}</style> <div class="mc-finder"> <h1>Minecraft Server Finder</h1> <p style="text-align: center;">Scan for online servers with options</p> <div class="stats"> <div class="stats-box"> <div class="stat-value" id="server-count">-</div> <div class="stat-label">Total Minecraft Servers*</div> </div> <div class="stats-box"> <div><a href="https://github.com/kgurchiek/Minecraft-Server-Scanner" class="stat-value" id="scan-time" style="text-decoration: none;" rel="external nofollow noopener" target="_blank">-</a></div> <div class="stat-label">Last Scan</div> </div> </div> <p class="scan-footnote">*as of last scan time</p> <div id="download-progress" style="display:none; margin-bottom:15px;"> <progress id="download-bar" value="0" max="100" style="width:100%;"></progress> <div id="download-text" style="color:#eee; font-size:14px; margin-top:4px;"> Downloading... </div> </div> <script>
+</span></code></pre></div></div> <p>To save you some time, I made my own <strong><a href="https://github.com/echen0719/minecraft-server-api" rel="external nofollow noopener" target="_blank">custom API here</a></strong> that has instructions in the README file on how to setup and run as a local endpoint. While this isn’t 100% required, it is heavily recommended since the backup API is <a href="https://api.mcsrvstat.us/" rel="external nofollow noopener" target="_blank">mcsrvstat</a>, which I do not want to flood their servers with thousands of requests. Use this 3rd party API service only when necessary, use a local API when possible. The default local API endpoint is set at <code class="language-plaintext highlighter-rouge">127.0.0.1:6767</code> but can be changed to other addresses and ports.</p> <p>Note: You might need to enable your browser to access local device endpoints so you can connect to your hosted API.</p> <h3 id="instructions">Instructions</h3> <ul> <li>Check “Custom API” to be true and enter your API endpoint into the input box with the placeholder “Custom api address…”</li> <li>Enter the number of workers (threads) into the second input box with the placeholder “Specify number of workers…”</li> <li>Check any other options you want to enable such as “Show Offline”, “Have Players?”, or “Randomizer”</li> <li>Click the start button to start scanning. Preferrably open up your browser’s network debug tool with Ctrl+Shift+I –&gt; Network.</li> <li>Click the stop button to stop the scan at any time. Results will be shown below this menu.</li> </ul> <table style="width: 100%; border-collapse: collapse; text-align: center;"> <thead> <tr style="background-color: #f2f2f2;"> <th style="border: 1px solid #ddd; padding: 8px;">Show Offline</th> <th style="border: 1px solid #ddd; padding: 8px;">Have Players?</th> <th style="border: 1px solid #ddd; padding: 8px;">Randomizer</th> </tr> </thead> <tbody> <tr> <td style="border: 1px solid #ddd; padding: 8px;">Servers that do not respond are shown. They could still be valid Minecraft servers but likely not.</td> <td style="border: 1px solid #ddd; padding: 8px;">Filters servers that have at least one player. </td> <td style="border: 1px solid #ddd; padding: 8px;">Scans can be done sequentially or in random order. Random order is better.</td> </tr> </tbody> </table> <p></p> <style>.mc-finder{font-family:"Roboto",sans-serif;background:#181818;padding:40px 20px;border-radius:10px;color:#eee;max-width:1000px;margin:0 auto}.mc-finder h1{text-align:center;font-size:32px;font-weight:600;color:limegreen;margin-bottom:10px}.scan-notes{font-size:16px;font-weight:400;color:#888;margin-bottom:20px}.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;justify-items:center;align-items:center;margin-bottom:40px}.stats-box{background:darkslategray;padding:20px;border-radius:10px;text-align:center;border:1px solid steelblue;width:100%;min-width:200px}.stat-value{font-size:24px;font-weight:bold;color:limegreen;margin-bottom:8px}.stat-label{font-size:12px;font-weight:400;color:lightgray;letter-spacing:1px}</style> <div class="mc-finder"> <h1>Minecraft Server Finder</h1> <p class="scan-notes" style="text-align: center;">Scan for online servers with options</p> <div class="stats"> <div class="stats-box"> <div class="stat-value" id="server-count">-</div> <div class="stat-label">Total Minecraft Servers*</div> </div> <div class="stats-box"> <div><a href="https://github.com/kgurchiek/Minecraft-Server-Scanner" class="stat-value" id="scan-time" style="text-decoration: none;" rel="external nofollow noopener" target="_blank">-</a></div> <div class="stat-label">Last Scan</div> </div> </div> <p class="scan-notes" style="margin-top: -20px; text-align: right;">*as of last scan time</p> <div id="download-progress" style="display:none; margin-bottom:15px;"> <progress id="download-bar" value="0" max="100" style="width:100%;"></progress> <div id="download-text" style="color:#eee; font-size:14px; margin-top:4px;"> Downloading... </div> </div> <script>
 // indexedDB for storing larger files
 const conf = {
     repo: "kgurchiek/Minecraft-Server-Scanner",
@@ -178,12 +178,12 @@ let displayedServers = [];
 
 let serverStatuses = {}; // caching api results
 let pendingPings = new Set();
+let stopRequested = false; // flag to gracefully exit instead
 
 let currentPage = 1;
 let totalPages = 1;
 let pageSize = 50;
 let pinging = false;
-let abortController = null;
 let concurrentPings = 10; // worker count
 let scanIndex = 0;
 
@@ -237,16 +237,16 @@ function savePreferences() {
 }
 
 function updatePingButtons() {
-    const startBtn = document.getElementById('start-button');
-    const stopBtn = document.getElementById('stop-button');
+    const startButton = document.getElementById('start-button');
+    const stopButton = document.getElementById('stop-button');
 
     if (pinging) { // mutually exclusive behavior
-        startBtn.disabled = true;
-        stopBtn.disabled = false;
+        startButton.disabled = true;
+        stopButton.disabled = false;
     }
     else {
-        startBtn.disabled = false;
-        stopBtn.disabled = true;
+        startButton.disabled = false;
+        stopButton.disabled = true;
     }
 }
 
@@ -368,14 +368,8 @@ function handleFilterChange() {
 }
 
 function cancelPings() {
-    if (abortController) {
-        abortController.abort();
-        abortController = null;
-    }
-
-    pendingPings.clear()
-    pinging = false;
-    updatePingButtons();
+    stopRequested = true;
+    document.getElementById('stop-button').disabled = true;
 }
 
 function prepareResults() {
@@ -507,6 +501,8 @@ function render() {
     document.getElementById('page-info').textContent = `Page ${currentPage} / ${totalPages}`;
 }
 
+const backupAPI = "https://api.mcsrvstat.us/3";
+
 function viewRawJson(key) { // add api open instead in future
     window.open(`https://api.mcsrvstat.us/3/${key}`, '_blank');
 }
@@ -528,9 +524,7 @@ function getCustomAPI() {
     return null;
 }
 
-const backupAPI = "https://api.mcsrvstat.us/3";
-
-async function ping(ip, port, signal) {
+async function ping(ip, port) {
     const key = `${ip}:${port}`;
     const maxRetries = 2;
     const API = getCustomAPI();
@@ -538,9 +532,9 @@ async function ping(ip, port, signal) {
 
     for (const endpoint of endpoints) {
         for (let i = 0; i < maxRetries; i++) {
-            if (signal && signal.aborted) return;
+            if (stopRequested) return; // prevent new requests during stop
             try {
-                const response = await fetch(`${endpoint}/${key}`, {signal: AbortSignal.any([signal, AbortSignal.timeout(10000)])});
+                const response = await fetch(`${endpoint}/${key}`, {signal: AbortSignal.timeout(10000)});
                 if (!response.ok) throw new Error('API or request error');
                 const data = await response.json();
 
@@ -548,7 +542,7 @@ async function ping(ip, port, signal) {
                 return data;
             }
             catch (e) {
-                if (signal && signal.aborted) return;
+                if (stopRequested) return;
                 if (i < maxRetries - 1) {
                     await new Promise(resolve => setTimeout(resolve, 500));
                 }
@@ -556,7 +550,9 @@ async function ping(ip, port, signal) {
         }
     }
 
-    serverStatuses[key] = {online: false}; // both servers failed
+    if (!stopRequested) {
+        serverStatuses[key] = {online: false}; // both servers failed
+    }
 }
 
 async function pingVisible() {
@@ -564,13 +560,11 @@ async function pingVisible() {
     pinging = true;
 
     updatePingButtons();
-
-    abortController = new AbortController();
-    const signal = abortController.signal;
+    stopRequested = false;
 
     let renderTimeout;
     async function worker() {
-        while (!signal.aborted) {
+        while (!stopRequested) {
             let nextServer = null;
             let nextKey = null;
 
@@ -591,10 +585,10 @@ async function pingVisible() {
             }
 
             pendingPings.add(nextKey);
-            await ping(nextServer.ip, nextServer.port, signal);
+            await ping(nextServer.ip, nextServer.port);
             pendingPings.delete(nextKey); // which has much safer handling
 
-            if (!signal.aborted) {
+            if (!stopRequested) {
                 clearTimeout(renderTimeout);
                 renderTimeout = setTimeout(render, 150); // prevent massive updates
             }
@@ -615,6 +609,7 @@ async function pingVisible() {
     }
     finally {
         pinging = false;
+        stopRequested = false;
         updatePingButtons();
         clearTimeout(renderTimeout);
         render();
