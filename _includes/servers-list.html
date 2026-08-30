@@ -89,7 +89,7 @@ button:disabled:hover {
 </style>
 
 <div class="controls">
-    <input type="text" class="search-box"  id="search-box" placeholder="Search by IP or version...">
+    <input type="text" class="search-box"  id="search-box" placeholder="Search by IP or version or MOTD...">
 
     <select class="page-size" id="page-size">
         <option value="25">25 per page</option>
@@ -314,6 +314,10 @@ async function init() {
         const result = await getMinecraftServers();
         servers = result.servers;
         setInfo(servers.length, new Date(result.commitDate).toLocaleString());
+
+        if (document.getElementById('random-toggle').checked) {
+            servers.sort(() => Math.random() - 0.5);
+        }
     }
     catch (err) {
         document.getElementById('server-list').innerHTML = `<p style="color: red;">Error loading scan: ${err.message}</p>`;
@@ -342,14 +346,41 @@ function prepareResults() {
     const randomMode = document.getElementById('random-toggle').checked;
     const searchTerm = document.getElementById('search-box').value.toLowerCase();
 
-    let filtered = servers.filter(server =>
-        (server.ip && server.ip.toLowerCase().includes(searchTerm)) ||
-        (server.version && server.version.toLowerCase().includes(searchTerm))
-    );
+    let filtered = servers.filter(server => {
+        if (server.ip && server.ip.toLowerCase().includes(searchTerm)) {
+            return true;
+        }
 
-    if (randomMode) {
-        filtered = filtered.sort(() => Math.random() - 0.5); // using this because it is easier
-    }
+        if (server.version && server.version.toLowerCase().includes(searchTerm)) {
+            return true;
+        }
+
+        const key = `${server.ip}:${server.port}`;
+        const status = serverStatuses[key];
+
+        if (status && status.motd) {
+            let motdText = '';
+
+            if (Array.isArray(status.motd.html)) {
+                motdText = status.motd.html.join(' ');
+            }
+            else if (typeof status.motd.html === 'string') {
+                motdText = status.motd.html;
+            }
+            else if (Array.isArray(status.motd.clean)) {
+                motdText = status.motd.clean.join(' '); // changed from br to ' ' since it's not necessary for what I am doing
+            }
+            else if (typeof status.motd.clean === 'string') {
+                motdText = status.motd.clean;
+            }
+
+            if (motdText.toLowerCase().includes(searchTerm)) {
+                return true;
+            }
+        }
+
+        return false;
+    });
 
     filteredServers = filtered;
     currentPage = 1;
