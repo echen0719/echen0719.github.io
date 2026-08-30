@@ -171,7 +171,7 @@ async function getMinecraftServers() { // ported from my python file
         throw new Error("Yeah...good luck...Sorry....");
     }
 }
-</script> <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script> <style>.controls,.bottom-controls{display:flex;align-items:center;gap:12px;margin-bottom:20px}.search-box,.custom-api-box,.worker-count-box{flex:1;min-width:250px;padding:12px;background:#2a2a2a;border:1px solid steelblue;border-radius:6px;color:#eee;font-size:14px}.page-size,.refresh-button,.start-button,.stop-button{padding:12px 16px;background:#2a2a2a;border-radius:6px;color:#eee;font-size:14px}.refresh-button,.start-button,.stop-button{background:darkslategray}.view-json-button:hover,.refresh-button:hover,.start-button:hover,.stop-button:hover{border:2px solid steelblue}button:disabled{background:#1a1a1a;color:#666;cursor:not-allowed;opacity:.6}button:disabled:hover{border:2px solid transparent}.checkbox-label{display:flex;align-items:center;gap:6px;color:#eee;white-space:nowrap}.server-card{background:#2a2a2a;border:1px solid #3a3a3a;border-radius:8px;padding:15px;margin-bottom:15px;display:flex;gap:15px;transition:transform .2s}.server-card:hover{border-color:steelblue}.server-icon{width:64px;height:64px;border-radius:4px;object-fit:cover}</style> <div class="controls"> <input type="text" class="search-box" id="search-box" placeholder="Search by IP or version..."> <select class="page-size" id="page-size"> <option value="25">25 per page</option> <option value="50" selected>50 per page</option> <option value="100">100 per page</option> <option value="500">500 per page</option> </select> <label class="checkbox-label"> <input type="checkbox" id="show-offline"> <span style="color: #eee">Show Offline</span> </label> <label class="checkbox-label"> <input type="checkbox" id="have-players-toggle"> <span style="color: #eee">Have Players?</span> </label> <button class="refresh-button" id="refresh-button">Refresh Servers</button> </div> <div class="bottom-controls"> <label class="checkbox-label"> <input type="checkbox" id="random-toggle" checked> <span style="color: #eee">Randomizer</span> </label> <label class="checkbox-label"> <input type="checkbox" id="custom-api-toggle" checked> <span style="color: #eee">Custom API</span> </label> <input type="text" class="custom-api-box" id="custom-api-box" placeholder="Custom api address (e.g. 127.0.0.1:6767/scan)"> <input type="text" class="worker-count-box" id="worker-count-box" placeholder="Specify number of workers (default: 10)"> <button class="start-button" id="start-button">Start</button> <button class="stop-button" id="stop-button">Stop</button> </div> <div class="server-list" id="server-list" style="color: #eee">Loading...</div> <div class="pagination-controls" style="display: flex; align-items: center; justify-content: center;"> <button class="refresh-button" id="previous-page">Previous</button> <span id="page-info" style="color: white; min-width: 120px; text-align: center; padding: 0 15px">Page 1 / 1</span> <button class="refresh-button" id="next-page">Next</button> </div> <script>
+</script> <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script> <style>.controls,.bottom-controls{display:flex;align-items:center;gap:12px;margin-bottom:20px}.search-box,.custom-api-box,.worker-count-box{flex:1;min-width:250px;padding:12px;background:#2a2a2a;border:1px solid steelblue;border-radius:6px;color:#eee;font-size:14px}.page-size,.refresh-button,.start-button,.stop-button{padding:12px 16px;background:#2a2a2a;border-radius:6px;color:#eee;font-size:14px}.refresh-button,.start-button,.stop-button{background:darkslategray}.view-json-button:hover,.refresh-button:hover,.start-button:hover,.stop-button:hover{border:2px solid steelblue}button:disabled{background:#1a1a1a;color:#666;cursor:not-allowed;opacity:.6}button:disabled:hover{border:2px solid transparent}.checkbox-label{display:flex;align-items:center;gap:6px;color:#eee;white-space:nowrap}.server-card{background:#2a2a2a;border:1px solid #3a3a3a;border-radius:8px;padding:15px;margin-bottom:15px;display:flex;gap:15px;transition:transform .2s}.server-card:hover{border-color:steelblue}.server-icon{width:64px;height:64px;border-radius:4px;object-fit:cover}</style> <div class="controls"> <input type="text" class="search-box" id="search-box" placeholder="Search by IP or version or MOTD..."> <select class="page-size" id="page-size"> <option value="25">25 per page</option> <option value="50" selected>50 per page</option> <option value="100">100 per page</option> <option value="500">500 per page</option> </select> <label class="checkbox-label"> <input type="checkbox" id="show-offline"> <span style="color: #eee">Show Offline</span> </label> <label class="checkbox-label"> <input type="checkbox" id="have-players-toggle"> <span style="color: #eee">Have Players?</span> </label> <button class="refresh-button" id="refresh-button">Refresh Servers</button> </div> <div class="bottom-controls"> <label class="checkbox-label"> <input type="checkbox" id="random-toggle" checked> <span style="color: #eee">Randomizer</span> </label> <label class="checkbox-label"> <input type="checkbox" id="custom-api-toggle" checked> <span style="color: #eee">Custom API</span> </label> <input type="text" class="custom-api-box" id="custom-api-box" placeholder="Custom api address (e.g. 127.0.0.1:6767/scan)"> <input type="text" class="worker-count-box" id="worker-count-box" placeholder="Specify number of workers (default: 10)"> <button class="start-button" id="start-button">Start</button> <button class="stop-button" id="stop-button">Stop</button> </div> <div class="server-list" id="server-list" style="color: #eee">Loading...</div> <div class="pagination-controls" style="display: flex; align-items: center; justify-content: center;"> <button class="refresh-button" id="previous-page">Previous</button> <span id="page-info" style="color: white; min-width: 120px; text-align: center; padding: 0 15px">Page 1 / 1</span> <button class="refresh-button" id="next-page">Next</button> </div> <script>
 let servers = [];
 let filteredServers = [];
 let displayedServers = [];
@@ -348,6 +348,10 @@ async function init() {
         const result = await getMinecraftServers();
         servers = result.servers;
         setInfo(servers.length, new Date(result.commitDate).toLocaleString());
+
+        if (document.getElementById('random-toggle').checked) {
+            servers.sort(() => Math.random() - 0.5);
+        }
     }
     catch (err) {
         document.getElementById('server-list').innerHTML = `<p style="color: red;">Error loading scan: ${err.message}</p>`;
@@ -376,14 +380,41 @@ function prepareResults() {
     const randomMode = document.getElementById('random-toggle').checked;
     const searchTerm = document.getElementById('search-box').value.toLowerCase();
 
-    let filtered = servers.filter(server =>
-        (server.ip && server.ip.toLowerCase().includes(searchTerm)) ||
-        (server.version && server.version.toLowerCase().includes(searchTerm))
-    );
+    let filtered = servers.filter(server => {
+        if (server.ip && server.ip.toLowerCase().includes(searchTerm)) {
+            return true;
+        }
 
-    if (randomMode) {
-        filtered = filtered.sort(() => Math.random() - 0.5); // using this because it is easier
-    }
+        if (server.version && server.version.toLowerCase().includes(searchTerm)) {
+            return true;
+        }
+
+        const key = `${server.ip}:${server.port}`;
+        const status = serverStatuses[key];
+
+        if (status && status.motd) {
+            let motdText = '';
+
+            if (Array.isArray(status.motd.html)) {
+                motdText = status.motd.html.join(' ');
+            }
+            else if (typeof status.motd.html === 'string') {
+                motdText = status.motd.html;
+            }
+            else if (Array.isArray(status.motd.clean)) {
+                motdText = status.motd.clean.join(' '); // changed from br to ' ' since it's not necessary for what I am doing
+            }
+            else if (typeof status.motd.clean === 'string') {
+                motdText = status.motd.clean;
+            }
+
+            if (motdText.toLowerCase().includes(searchTerm)) {
+                return true;
+            }
+        }
+
+        return false;
+    });
 
     filteredServers = filtered;
     currentPage = 1;
