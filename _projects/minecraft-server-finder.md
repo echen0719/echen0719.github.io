@@ -10,31 +10,6 @@ related_publications: true
 
 Ain't this really cool? Sometimes, you just want to meet new friends all across the world through Minecraft. Well, I gotchu since I scanned the whole internet for servers that you can join. Don't trust me? Give my implmentation a try and see who you meet (or who you grief).
 
-### **Important Information, Read Below:**
-
-This is the front end of a Minecraft server pinger. It requires a backend *API*  to function. Specifically, one that returns JSON in the format of:
-
-```json
-{
-    "online": "true/false",
-    "motd": {
-        "html": "HTML format of MOTD",
-        "clean": "Plain format of MOTD"
-    },
-    "version": "Version info",
-    "protocol": "Version protocol",
-    "players": {
-        "online": "Players currently online",
-        "max": "Maximum player count"
-    },
-    "icon": "Server Favicon",
-}
-```
-
-To save you some time, I made my own **[custom API here](https://github.com/echen0719/minecraft-server-api)** that has instructions in the README file on how to setup and run as a local endpoint. While this isn't 100% required, it is heavily recommended since the backup API is [mcsrvstat](https://api.mcsrvstat.us/), which I do not want to flood their servers with thousands of requests. Use this 3rd party API service only when necessary, use a local API when possible. The default local API endpoint is set at ```127.0.0.1:6767``` but can be changed to other addresses and ports.
-
-Note: You might need to enable your browser to access local device endpoints so you can connect to your hosted API.
-
 ### Instructions
 
 - Check "Custom API" to be true and enter your API endpoint into the input box with the placeholder "Custom api address..."
@@ -62,6 +37,8 @@ Note: You might need to enable your browser to access local device endpoints so 
 <p></p>
 
 <style>
+    @import url('https://fonts.cdnfonts.com/css/minecraft-4');
+
     .mc-finder {
         font-family: "Roboto", sans-serif;
         background: #181818;
@@ -110,7 +87,6 @@ Note: You might need to enable your browser to access local device endpoints so 
         font-size: 24px;
         font-weight: bold;
         color: limegreen;
-        margin-bottom: 8px;
     }
 
     .stat-label {
@@ -120,19 +96,20 @@ Note: You might need to enable your browser to access local device endpoints so 
         letter-spacing: 1px;
     }
 </style>
+
 <body>
     <div class="mc-finder">
-        <h1>Minecraft Server Finder</h1>
-        <p class="scan-notes" style="text-align: center;">Scan for online servers with options</p>
+        <h1 style="font-family: 'Minecraft'">echen0719's Minecraft Server Finder</h1>
+        <p class="scan-notes" style="text-align: center;">Scan for online servers with options <a href="#instructions-link">(click here for setup instruction)</a></p>
 
         <div class="stats">
             <div class="stats-box">
-                <div class="stat-value" id="server-count">-</div>
+                <div class="stat-value" id="server-count" style="font-family: 'Minecraft'">-</div>
                 <div class="stat-label">Total Minecraft Servers*</div>
             </div>
 
             <div class="stats-box">
-                <div><a href="https://github.com/kgurchiek/Minecraft-Server-Scanner" class="stat-value" id="scan-time" style="text-decoration: none;">-</a></div>
+                <div><a href="https://github.com/kgurchiek/Minecraft-Server-Scanner" class="stat-value" id="scan-time" style="text-decoration: none; font-family: 'Minecraft'">-</a></div>
                 <div class="stat-label">Last Scan</div>
             </div>
         </div>
@@ -143,6 +120,48 @@ Note: You might need to enable your browser to access local device endpoints so 
         {% include servers-list.html %}
     </div>
 </body>
+
+<div id="instructions-link" style="scroll-margin-top: 60px;"><p></p></div>
+### **Important Setup, Read Below:**
+
+This is the front end of a Minecraft server pinger. It requires a backend *API*  to function. Specifically, one that returns JSON in the format of:
+
+#### Recommended Setup
+
+I made my own **[custom API here](https://github.com/echen0719/minecraft-server-api)** that has instructions in the README file for setting it up locally. While this isn't 100% required, it is heavily recommended since the backup API is [mcsrvstat](https://api.mcsrvstat.us/), which I do not want to flood their servers with thousands of requests. Use this 3rd party API service only when necessary, use a local API when possible. 
+
+<p style="text-align: center; text-decoration: underline;">A quick and basic API guide: </p>
+
+- Visit [https://github.com/echen0719/minecraft-server-api/blob/main/mcstatusPing.py](https://github.com/echen0719/minecraft-server-api/blob/main/mcstatusPing.py) and download the file.
+- Install necessary Python packages by ```pip install fastapi mcstatus slowapi uvicorn```
+- Run the script by ```python mcstatusPing.py --host 127.0.0.1 --port 6767 --semaphore 500 --cors --url /scan```
+
+The default local API endpoint is set at ```127.0.0.1:6767``` but can be changed to other addresses and ports.
+
+*Note: You might need to enable your browser to access local device endpoints so you can connect to the API.
+
+##### API Response
+
+My API returns a JSON in this format. If you have a custom API, make sure it also responds with a similar format:
+
+```json
+{
+    "online": "true/false",
+    "motd": {
+        "html": "HTML format of MOTD",
+        "clean": "Plain format of MOTD"
+    },
+    "version": "Version info",
+    "protocol": "Version protocol",
+    "players": {
+        "online": "Players currently online",
+        "max": "Maximum player count"
+    },
+    "icon": "Server Favicon",
+}
+```
+
+In the future, I am thinking of making a more modular scanner, but that's future goals...
 
 <p></p>
 ### How does this work?
