@@ -37,7 +37,12 @@ ninja.data = [{
           handler: () => {
             window.location.href = "/resume/";
           },
-        },{id: "projects-image-classification-with-pretrained-cnn-model",
+        },{id: "projects-echen0719-39-s-general-utils",
+          title: 'echen0719&amp;#39;s General Utils',
+          description: "Hate having to find free tools to do the things I need",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/echen0719s-general-utils/";
+            },},{id: "projects-image-classification-with-pretrained-cnn-model",
           title: 'Image Classification with Pretrained CNN Model',
           description: "A model built off the MobileNet V3 model on the CIFAR-10/CINIC-10 datasets.",
           section: "Projects",handler: () => {
