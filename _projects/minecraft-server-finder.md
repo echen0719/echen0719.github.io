@@ -3,7 +3,7 @@ layout: page
 title: Minecraft Server Finder v2
 description: Scanner for the internet for Minecraft Servers (scanner tool below)
 img: assets/img/serverfinder.png
-importance: 2
+importance: 1
 category: work
 related_publications: true
 ---
