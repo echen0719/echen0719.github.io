@@ -136,7 +136,7 @@ I made my own **[custom API here](https://github.com/echen0719/minecraft-server-
 - Install necessary Python packages by ```pip install fastapi mcstatus slowapi uvicorn```
 - Run the script by ```python mcstatusPing.py --host 127.0.0.1 --port 6767 --semaphore 500 --cors --url /scan```
 
-The default local API endpoint is set at ```127.0.0.1:6767``` but can be changed to other addresses and ports.
+The default local API endpoint is set at ```127.0.0.1:6767/scan``` but can be changed to other addresses and ports.
 
 *Note: You might need to enable your browser to access local device endpoints so you can connect to the API.
 
