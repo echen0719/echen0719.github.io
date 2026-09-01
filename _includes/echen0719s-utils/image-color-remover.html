@@ -1,0 +1,27 @@
+<style>
+.image-color-remover-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+</style>
+
+<div class="image-color-remover-container">
+    <h3 style="text-align: center;">Remove Color From Image</h3>
+
+    <div>
+        <label for="fileInput"><strong>Upload Image:</strong></label>
+        <input id="fileInput" type="file" name="file" accept="image/*" id="fileInput" hidden>
+        <button type="button" onclick="document.getElementById('fileInput').click()">Browse...</button>
+    </div>
+    <div>
+        <label for="imageUrl"><strong>Or Enter Image URL:</strong></label>
+        <input type="text" id="imageUrl" placeholder="https://somewebsite.com/somepicture.png">
+        <button id="uploadBtn">Upload</button>
+    </div>
+</div>
+
+<script>
+</script>
