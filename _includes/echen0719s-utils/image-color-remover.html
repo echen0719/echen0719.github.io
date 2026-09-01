@@ -1,25 +1,98 @@
 <style>
 .image-color-remover-container {
+    width: 80%;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
     gap: 10px;
+}
+
+.image-panels {
+    display: flex;
+    gap: 20px;
+}
+
+.image-panel {
+    position: relative;
+}
+
+canvas {
+    width: 100%;
+    height: 225px;
+    border: 2px solid black;
+    display: block;
+}
+
+.upload-widgets, .download-widgets {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.image-change {
+    width: calc((100% - 20px) / 2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.image-options {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.image-options label {
+    white-space: nowrap;
+    margin-top: 2px;
+}
+
+.image-options input {
+    height: 30px;
 }
 </style>
 
 <div class="image-color-remover-container">
     <h3 style="text-align: center;">Remove Color From Image</h3>
 
-    <div>
-        <label for="fileInput"><strong>Upload Image:</strong></label>
+    <div class="image-panels">
+        <div class="image-panel">
+            <canvas class="input"></canvas>
+
+            <div class="upload-widgets">
+                <label for="fileInput"><strong>Upload Image:</strong></label>
+                <input id="fileInput" type="file" name="file" accept="image/*" id="fileInput" hidden>
+                <button type="button" onclick="document.getElementById('fileInput').click()">Browse...</button>
+            </div>
+        </div>
+
+        <div class="image-panel">
+            <canvas class="output"></canvas>
+
+            <div class="download-widgets">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="image-change" style="display: none;">
+        <label for="fileInput"><strong>Choose another image:</strong></label>
         <input id="fileInput" type="file" name="file" accept="image/*" id="fileInput" hidden>
         <button type="button" onclick="document.getElementById('fileInput').click()">Browse...</button>
     </div>
-    <div>
-        <label for="imageUrl"><strong>Or Enter Image URL:</strong></label>
-        <input type="text" id="imageUrl" placeholder="https://somewebsite.com/somepicture.png">
-        <button id="uploadBtn">Upload</button>
+
+    <div class="image-options">
+        <label for="colorBeforeInput"><strong>Color to remove:</strong></label>
+        <input type="text" id="colorBeforeInput" placeholder="rgba(255, 255, 255)" >
+
+        <label for="colorAfterInput"><strong>Color to replace:</strong></label>
+        <input type="text" id="colorAfterInput" placeholder="rgba(0, 0, 0, 0)">
+
+        <button id="inputConfirm" type="button" onclick="">Submit</button>
     </div>
 </div>
 
