@@ -3,7 +3,7 @@ layout: page
 title: echen0719's General Utils
 description: Hate having to find free tools to do the things I need
 img: assets/img/pack.png
-importance: 2
+importance: 3
 category: work
 related_publications: true
 pretty_table: true

@@ -3,7 +3,7 @@ layout: page
 title: Image Classification with Pretrained CNN Model
 description: A model built off the MobileNet V3 model on the CIFAR-10/CINIC-10 datasets.
 img: assets/img/funny-cnn.png
-importance: 3
+importance: 4
 category: work
 related_publications: true
 pretty_table: true
