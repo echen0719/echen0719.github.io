@@ -64,9 +64,9 @@ canvas {
             <canvas class="input"></canvas>
 
             <div class="upload-widgets">
-                <label for="fileInput"><strong>Upload Image:</strong></label>
-                <input id="fileInput" type="file" name="file" accept="image/*" id="fileInput" hidden>
-                <button type="button" onclick="document.getElementById('fileInput').click()">Browse...</button>
+                <label for="fileInput1"><strong>Upload Image:</strong></label>
+                <input id="fileInput1" type="file" name="file" accept="image/*" hidden>
+                <button type="button" onclick="document.getElementById('fileInput1').click()">Browse...</button>
             </div>
         </div>
 
@@ -80,9 +80,9 @@ canvas {
     </div>
 
     <div class="image-change" style="display: none;">
-        <label for="fileInput"><strong>Choose another image:</strong></label>
-        <input id="fileInput" type="file" name="file" accept="image/*" id="fileInput" hidden>
-        <button type="button" onclick="document.getElementById('fileInput').click()">Browse...</button>
+        <label for="fileInput2"><strong>Choose another image:</strong></label>
+        <input id="fileInput2" type="file" name="file" accept="image/*" hidden>
+        <button type="button" onclick="document.getElementById('fileInput2').click()">Browse...</button>
     </div>
 
     <div class="image-options">
@@ -97,4 +97,44 @@ canvas {
 </div>
 
 <script>
+const fileInput1 = document.getElementById("fileInput1");
+const fileInput2 = document.getElementById("fileInput2");
+
+const inputCanvas = document.querySelector("canvas.input");
+const inputContext = inputCanvas.getContext("2d");
+
+const uploadWidget = document.querySelector(".upload-widgets");
+const imageChange = document.querySelector(".image-change");
+
+function loadImage(file) {
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (event) {
+        const image = new Image();
+
+        image.onload = function () {
+            inputCanvas.width = image.naturalWidth;
+            inputCanvas.height = image.naturalHeight;
+
+            inputContext.clearRect(0, 0, inputCanvas.width, inputCanvas.height);
+            inputContext.drawImage(image, 0, 0, inputCanvas.width, inputCanvas.height);
+
+            uploadWidget.style.display = "none";
+            imageChange.style.display = "flex";
+        };
+
+        image.src = event.target.result;
+    };
+
+    reader.readAsDataURL(file);
+}
+
+fileInput1.addEventListener("change", function () {
+    loadImage(this.files[0]);
+});
+
+fileInput2.addEventListener("change", function () {
+    loadImage(this.files[0]);
+});
 </script>
