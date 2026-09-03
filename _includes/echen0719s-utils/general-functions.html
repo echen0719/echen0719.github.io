@@ -1,0 +1,10 @@
+<script>
+function hexToRGB(hex) {
+    const big = parseInt(hex.slice(1), 16); // exclude 0x
+    return { // searched these up by I understand what they do
+        r: (big >> 16) & 255,
+        g: (big >> 8) & 255,
+        b: big & 255
+    };
+}
+</script>

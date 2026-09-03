@@ -11,5 +11,6 @@ pretty_table: true
 
 <p style="margin-top: -15px;">Self-explanatory, ehh?</p>
 
+{% include echen0719s-utils/general-functions.html %}
 {% include echen0719s-utils/word-counter.html %}
 {% include echen0719s-utils/image-color-remover.html %}

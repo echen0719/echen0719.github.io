@@ -7,51 +7,48 @@
     gap: 10px;
 }
 
-.image-panels {
+.image-color-remover-image-panels {
     display: flex;
     gap: 20px;
 }
 
-.image-panel {
+.image-color-remover-image-panel {
     position: relative;
+    flex: 1;
 }
 
-canvas {
+.image-color-remover-canvas,
+.image-color-remover-canvas-input,
+.image-color-remover-canvas-output {
     width: 100%;
     height: 225px;
     border: 2px solid black;
     display: block;
+    background-color: white;
 }
 
-.upload-widgets, .download-widgets {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-}
-
-.image-change {
-    width: calc((100% - 20px) / 2);
+.image-color-remover-image-change,
+.image-color-remover-download-widgets {
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
 }
 
-.image-options {
+.image-color-remover-image-options {
     margin: 0 auto;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.image-options label {
+.image-color-remover-image-options label {
     white-space: nowrap;
     margin-top: 2px;
 }
 
-.image-options input {
+.image-color-remover-image-options input {
     height: 30px;
 }
 </style>
@@ -59,54 +56,70 @@ canvas {
 <div class="image-color-remover-container">
     <h3 style="text-align: center;">Remove Color From Image</h3>
 
-    <div class="image-panels">
-        <div class="image-panel">
-            <canvas class="input"></canvas>
+    <div class="image-color-remover-image-panels">
+        <div class="image-color-remover-image-panel">
+            <canvas class="image-color-remover-canvas-input"></canvas>
 
-            <div class="upload-widgets">
-                <label for="fileInput1"><strong>Upload Image:</strong></label>
-                <input id="fileInput1" type="file" name="file" accept="image/*" hidden>
-                <button type="button" onclick="document.getElementById('fileInput1').click()">Browse...</button>
+            <div class="image-color-remover-image-change">
+                <label for="image-color-remover-file-input"><strong>Choose an image:</strong></label>
+                <input id="image-color-remover-file-input" type="file" name="file" accept="image/*" hidden>
+                <button type="button" onclick="document.getElementById('image-color-remover-file-input').click()">Browse...</button>
             </div>
         </div>
 
-        <div class="image-panel">
-            <canvas class="output"></canvas>
+        <div class="image-color-remover-image-panel">
+            <canvas class="image-color-remover-canvas-output"></canvas>
 
-            <div class="download-widgets">
-
+            <div class="image-color-remover-download-widgets">
+                <label for="image-color-remover-file-output"><strong>Download image:</strong></label>
+                <button type="button" onclick="document.getElementById('image-color-remover-file-output').click()">Download</button>
             </div>
         </div>
     </div>
 
-    <div class="image-change" style="display: none;">
-        <label for="fileInput2"><strong>Choose another image:</strong></label>
-        <input id="fileInput2" type="file" name="file" accept="image/*" hidden>
-        <button type="button" onclick="document.getElementById('fileInput2').click()">Browse...</button>
-    </div>
+    <div class="image-color-remover-image-options">
+        <div>
+            <label for="image-color-remover-color-before-input"><strong>Color to remove:</strong></label>
+            <input type="color" id="image-color-remover-color-before-input">
 
-    <div class="image-options">
-        <label for="colorBeforeInput"><strong>Color to remove:</strong></label>
-        <input type="text" id="colorBeforeInput" placeholder="rgba(255, 255, 255)" >
+            <label for="image-color-remover-before-alpha">Transparency:</label>
+            <input type="range" id="image-color-remover-before-alpha" min="0" max="1" step="0.01" value="1">
+        </div>
 
-        <label for="colorAfterInput"><strong>Color to replace:</strong></label>
-        <input type="text" id="colorAfterInput" placeholder="rgba(0, 0, 0, 0)">
+        <div>
+            <label for="image-color-remover-color-after-input"><strong>Color to replace:</strong></label>
+            <input type="color" id="image-color-remover-color-after-input">
 
-        <button id="inputConfirm" type="button" onclick="">Submit</button>
+            <label for="image-color-remover-after-alpha">Transparency:</label>
+            <input type="range" id="image-color-remover-after-alpha" min="0" max="1" step="0.01" value="1">
+        </div>
+
+        <button id="image-color-remover-input-confirm" type="button" onclick="">Submit</button>
     </div>
 </div>
 
 <script>
-const fileInput1 = document.getElementById("fileInput1");
-const fileInput2 = document.getElementById("fileInput2");
+const imageColorRemoverFileInput = document.getElementById("image-color-remover-file-input");
 
-const inputCanvas = document.querySelector("canvas.input");
-const inputContext = inputCanvas.getContext("2d");
+const imageColorRemoverInputCanvas = document.querySelector("canvas.image-color-remover-canvas-input");
+const imageColorRemoverInputContext = imageColorRemoverInputCanvas.getContext("2d");
 
-const uploadWidget = document.querySelector(".upload-widgets");
-const imageChange = document.querySelector(".image-change");
+const imageColorRemoverOutputCanvas = document.querySelector("canvas.image-color-remover-canvas-output");
+const imageColorRemoverOutputContext = imageColorRemoverOutputCanvas.getContext("2d");
 
-function loadImage(file) {
+const imageColorRemoverImageChange = document.querySelector(".image-color-remover-image-change");
+
+// all the bottom inputs
+const imageColorRemoverColorBeforeInput = document.getElementById("image-color-remover-color-before-input");
+const imageColorRemoverBeforeAlphaInput = document.getElementById("image-color-remover-before-alpha");
+const imageColorRemoverColorAfterInput = document.getElementById("image-color-remover-color-after-input");
+const imageColorRemoverAfterAlphaInput = document.getElementById("image-color-remover-after-alpha");
+
+const imageColorRemoverInputConfirm = document.getElementById("image-color-remover-input-confirm");
+
+let imageColorRemoverCurrentImage = null;
+
+function imageColorRemoverLoadImage(file) {
     if (!file) return;
 
     const reader = new FileReader();
@@ -114,14 +127,18 @@ function loadImage(file) {
         const image = new Image();
 
         image.onload = function () {
-            inputCanvas.width = image.naturalWidth;
-            inputCanvas.height = image.naturalHeight;
+            imageColorRemoverCurrentImage = image;
 
-            inputContext.clearRect(0, 0, inputCanvas.width, inputCanvas.height);
-            inputContext.drawImage(image, 0, 0, inputCanvas.width, inputCanvas.height);
+            imageColorRemoverInputCanvas.width = image.naturalWidth;
+            imageColorRemoverInputCanvas.height = image.naturalHeight;
 
-            uploadWidget.style.display = "none";
-            imageChange.style.display = "flex";
+            imageColorRemoverInputContext.clearRect(0, 0, imageColorRemoverInputCanvas.width, imageColorRemoverInputCanvas.height);
+            imageColorRemoverInputContext.drawImage(image, 0, 0, imageColorRemoverInputCanvas.width, imageColorRemoverInputCanvas.height);
+
+            imageColorRemoverOutputCanvas.width = image.naturalWidth;
+            imageColorRemoverOutputCanvas.height = image.naturalHeight;
+
+            imageColorRemoverProcessImage();
         };
 
         image.src = event.target.result;
@@ -130,11 +147,51 @@ function loadImage(file) {
     reader.readAsDataURL(file);
 }
 
-fileInput1.addEventListener("change", function () {
-    loadImage(this.files[0]);
+/*
+const data looks
+
+[r, g, b, a, r, g, b, a] = 2 pixels
+*/
+
+function imageColorRemoverProcessImage() {
+    if (!imageColorRemoverCurrentImage) return;
+
+    imageColorRemoverOutputContext.clearRect(0, 0, imageColorRemoverOutputCanvas.width, imageColorRemoverOutputCanvas.height);
+    imageColorRemoverOutputContext.drawImage(imageColorRemoverCurrentImage, 0, 0);
+
+    const imageData = imageColorRemoverOutputContext.getImageData(0, 0, imageColorRemoverOutputCanvas.width, imageColorRemoverOutputCanvas.height);
+    const data = imageData.data;
+
+    const colorBefore = hexToRGB(imageColorRemoverColorBeforeInput.value);
+    const alphaBefore = parseFloat(imageColorRemoverBeforeAlphaInput.value);
+    const colorAfter = hexToRGB(imageColorRemoverColorAfterInput.value);
+    const alphaAfter = parseFloat(imageColorRemoverAfterAlphaInput.value);
+
+    for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+        const a = data[i + 3] / 255;
+
+        // if match target, change
+        if (r === colorBefore.r && g === colorBefore.g && b === colorBefore.b) {
+            data[i] = colorAfter.r;
+            data[i + 1] = colorAfter.g;
+            data[i + 2] = colorAfter.b;
+            data[i + 3] = alphaAfter * 255;
+        }
+    }
+
+    imageColorRemoverOutputContext.putImageData(imageData, 0, 0);
+}
+
+imageColorRemoverFileInput.addEventListener("change", function () {
+    imageColorRemoverLoadImage(this.files[0]);
 });
 
-fileInput2.addEventListener("change", function () {
-    loadImage(this.files[0]);
-});
+imageColorRemoverInputConfirm.addEventListener("click", imageColorRemoverProcessImage);
+imageColorRemoverColorBeforeInput.addEventListener("input", imageColorRemoverProcessImage);
+imageColorRemoverBeforeAlphaInput.addEventListener("input", imageColorRemoverProcessImage);
+imageColorRemoverColorAfterInput.addEventListener("input", imageColorRemoverProcessImage);
+imageColorRemoverAfterAlphaInput.addEventListener("input", imageColorRemoverProcessImage);
 </script>
