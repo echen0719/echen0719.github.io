@@ -4,6 +4,7 @@ title: My Goals For Running This Year
 date: 2025-12-03 17:20:56
 description: A description of all the goals I have for my future running.
 pretty_table: true
+comments: true
 ---
 <div style="text-align: center;">
     <img src="/assets/img/post_images/runner-running.jpg" alt="Just a stock photo of a man running">

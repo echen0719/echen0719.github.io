@@ -18,7 +18,13 @@ layout: default
     {{ content }}
   </article>
 
+  <hr style="border: 1px solid black">
+
   {% if site.giscus and page.giscus_comments %}
     {% include giscus.liquid %}
+  {% endif %}
+
+  {% if page.comments %}
+    {% include disqus.liquid %}
   {% endif %}
 </div>

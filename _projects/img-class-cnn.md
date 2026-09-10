@@ -3,10 +3,11 @@ layout: page
 title: Image Classification with Pretrained CNN Model
 description: A model built off the MobileNet V3 model on the CIFAR-10/CINIC-10 datasets.
 img: assets/img/funny-cnn.png
-importance: 3
+importance: 4
 category: work
 related_publications: true
 pretty_table: true
+comments: true
 ---
 
 Well...what do we see here! Below what you are currently reading is a box containing a few buttons. In case you missed the title, here’s a quick overview. Here, I am hosting a pretrained MobileNet V3 model on CIFAR-10 and CINIC-10 datasets so it can predict an image as either an airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck.

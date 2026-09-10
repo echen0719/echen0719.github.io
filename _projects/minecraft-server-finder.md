@@ -6,6 +6,7 @@ img: assets/img/serverfinder.png
 importance: 1
 category: work
 related_publications: true
+comments: true
 ---
 
 Ain't this really cool? Sometimes, you just want to meet new friends all across the world through Minecraft. Well, I gotchu since I scanned the whole internet for servers that you can join. Don't trust me? Give my implmentation a try and see who you meet (or who you grief).
