@@ -52,6 +52,11 @@ ninja.data = [{
           description: "Scanner for the internet for Minecraft Servers (scanner tool below)",
           section: "Projects",handler: () => {
               window.location.href = "/projects/minecraft-server-finder/";
+            },},{id: "projects-my-project-seed-experience",
+          title: 'My Project Seed Experience',
+          description: "Internship experience for Summer 2026",
+          section: "Projects",handler: () => {
+              window.location.href = "/projects/my-project-seed-experience/";
             },},{
         id: 'social-email',
         title: 'email',
