@@ -37,4 +37,4 @@ group :other_plugins do
     # gem 'webrick' -- should be already installed by jekyll
 end
 
-gem "erb", "~> 5.1"
+gem "erb", ">= 6.0.7" # using this because 6 7
